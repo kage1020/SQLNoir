@@ -99,10 +99,7 @@ export default function App() {
         <div className="flex items-center justify-center">
           <div className="relative">
             <div className="w-40 h-40 relative mb-4 flex items-center justify-center">
-              <div className="absolute inset-0 animate-pulse">
-                <BsIncognito className="w-full h-full text-amber-200 opacity-75" />
-              </div>
-              <BsIncognito className="w-full h-full text-amber-800 relative" />
+              <BsIncognito className="w-full h-full text-amber-900 relative" />
             </div>
           </div>
         </div>
