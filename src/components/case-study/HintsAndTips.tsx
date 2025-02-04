@@ -1,5 +1,4 @@
-import React from 'react';
-import { Lightbulb, CheckCircle } from 'lucide-react';
+import { Lightbulb, CheckCircle } from "lucide-react";
 
 export function HintsAndTips() {
   return (
@@ -12,22 +11,30 @@ export function HintsAndTips() {
         <ul className="space-y-4">
           {[
             {
-              title: 'Check for NULL Values',
-              description: 'Use IS NULL to find records with missing information in critical fields.',
-              example: 'SELECT * FROM Orders WHERE ShipDate IS NULL;'
+              title: "Check for NULL Values",
+              description:
+                "Use IS NULL to find records with missing information in critical fields.",
+              example: "SELECT * FROM Orders WHERE ShipDate IS NULL;",
             },
             {
-              title: 'Join Multiple Tables',
-              description: 'Connect orders with customer information using JOIN operations.',
-              example: 'SELECT o.*, c.CompanyName FROM Orders o JOIN Customers c ON o.CustomerID = c.CustomerID;'
+              title: "Join Multiple Tables",
+              description:
+                "Connect orders with customer information using JOIN operations.",
+              example:
+                "SELECT o.*, c.CompanyName FROM Orders o JOIN Customers c ON o.CustomerID = c.CustomerID;",
             },
             {
-              title: 'Filter by Date Range',
-              description: 'Use BETWEEN operator to find orders within specific dates.',
-              example: "SELECT * FROM Orders WHERE OrderDate BETWEEN '1998-03-01' AND '1998-04-30';"
-            }
+              title: "Filter by Date Range",
+              description:
+                "Use BETWEEN operator to find orders within specific dates.",
+              example:
+                "SELECT * FROM Orders WHERE OrderDate BETWEEN '1998-03-01' AND '1998-04-30';",
+            },
           ].map((tip, index) => (
-            <li key={index} className="bg-white p-4 rounded-lg border border-amber-200">
+            <li
+              key={index}
+              className="bg-white p-4 rounded-lg border border-amber-200"
+            >
               <h4 className="font-detective text-amber-900 mb-2 flex items-center">
                 <CheckCircle className="w-4 h-4 mr-2 text-amber-700" />
                 {tip.title}

@@ -1,43 +1,53 @@
-import React, { useState } from 'react';
-import { Play, AlertCircle, Loader2, Command, ChevronDown, ChevronUp } from 'lucide-react';
-import { SQLEditor } from './SQLEditor';
-import { useDatabase } from '../../hooks/useDatabase';
-import type { QueryResult } from '../../services/DatabaseService';
+import { useState } from "react";
+import {
+  Play,
+  AlertCircle,
+  Loader2,
+  Command,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
+import { SQLEditor } from "./SQLEditor";
+import { useDatabase } from "../../hooks/useDatabase";
+import type { QueryResult } from "../../services/DatabaseService";
 
 interface SQLWorkspaceProps {
   caseId: string;
 }
 
 export function SQLWorkspace({ caseId }: SQLWorkspaceProps) {
-  const [query, setQuery] = useState('');
-  const [error, setError] = useState('');
-  const [results, setResults] = useState<QueryResult>({ columns: [], values: [] });
+  const [query, setQuery] = useState("");
+  const [error, setError] = useState("");
+  const [results, setResults] = useState<QueryResult>({
+    columns: [],
+    values: [],
+  });
   const [isExecuting, setIsExecuting] = useState(false);
   const [isResultsExpanded, setIsResultsExpanded] = useState(true);
-  
+
   const { isLoading, error: dbError, executeQuery } = useDatabase(caseId);
 
   const handleExecute = async () => {
     try {
       if (!query.trim()) {
-        setError('Query cannot be empty');
+        setError("Query cannot be empty");
         setResults({ columns: [], values: [] });
         return;
       }
 
       setIsExecuting(true);
-      setError('');
+      setError("");
       setIsResultsExpanded(true);
-      
+
       const result = await executeQuery(query);
-      
+
       if (result.error) {
         setError(result.error);
       } else {
         setResults(result);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : "An error occurred");
       setResults({ columns: [], values: [] });
     } finally {
       setIsExecuting(false);
@@ -72,8 +82,8 @@ export function SQLWorkspace({ caseId }: SQLWorkspaceProps) {
             disabled={isExecuting}
             className={`flex items-center px-4 py-1 rounded text-sm transition-colors ${
               isExecuting
-                ? 'bg-amber-800 text-amber-300 cursor-not-allowed'
-                : 'bg-amber-700 hover:bg-amber-600 text-amber-100'
+                ? "bg-amber-800 text-amber-300 cursor-not-allowed"
+                : "bg-amber-700 hover:bg-amber-600 text-amber-100"
             }`}
           >
             {isExecuting ? (
@@ -120,14 +130,17 @@ export function SQLWorkspace({ caseId }: SQLWorkspaceProps) {
             <ChevronDown className="w-4 h-4 text-amber-700" />
           )}
         </button>
-        
+
         {isResultsExpanded && (
           <div className="overflow-x-auto">
             <table className="min-w-full">
               <thead className="bg-amber-50">
                 <tr>
                   {results.columns.map((column) => (
-                    <th key={column} className="px-6 py-3 text-left text-xs font-detective text-amber-900 uppercase tracking-wider">
+                    <th
+                      key={column}
+                      className="px-6 py-3 text-left text-xs font-detective text-amber-900 tracking-wider"
+                    >
                       {column}
                     </th>
                   ))}
@@ -137,16 +150,23 @@ export function SQLWorkspace({ caseId }: SQLWorkspaceProps) {
                 {results.values.map((row, i) => (
                   <tr key={i}>
                     {row.map((value: any, j) => (
-                      <td key={j} className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
-                        {value === null ? <span className="text-amber-400 italic">NULL</span> : value}
+                      <td
+                        key={j}
+                        className="px-6 py-4 whitespace-nowrap text-sm text-amber-900"
+                      >
+                        {value === null ? (
+                          <span className="text-amber-400 italic">NULL</span>
+                        ) : (
+                          value
+                        )}
                       </td>
                     ))}
                   </tr>
                 ))}
                 {results.values.length === 0 && (
                   <tr>
-                    <td 
-                      colSpan={Math.max(1, results.columns.length)} 
+                    <td
+                      colSpan={Math.max(1, results.columns.length)}
                       className="px-6 py-4 whitespace-nowrap text-sm text-amber-900 italic"
                     >
                       No results yet. Execute a query to see the results.

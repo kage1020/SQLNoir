@@ -1,5 +1,12 @@
 import React, { useCallback } from "react";
-import { Table2, Key, Link, Loader2 } from "lucide-react";
+import {
+  Table2,
+  Key,
+  Link,
+  Loader2,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import ReactFlow, {
   Node,
   Edge,
@@ -177,20 +184,25 @@ export function DatabaseSchemaGraph({ schema }: { schema: SchemaInfo[] }) {
   );
 
   return (
-    <div className="h-[600px] border border-amber-900/10 rounded-lg">
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        nodeTypes={nodeTypes}
-        fitView
-        className="bg-amber-50/50"
-      >
-        <Controls className="text-amber-900" />
-        <Background />
-      </ReactFlow>
+    <div className="space-y-2">
+      <div className="h-[600px] border border-amber-900/10 rounded-lg">
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          nodeTypes={nodeTypes}
+          fitView
+          className="bg-amber-50/50"
+        >
+          <Controls className="text-amber-900" />
+          <Background />
+        </ReactFlow>
+      </div>
+      <p className="text-sm text-amber-700 text-center italic">
+        Tip: You can drag and reposition tables to organize the schema view
+      </p>
     </div>
   );
 }
@@ -198,7 +210,22 @@ export function DatabaseSchemaGraph({ schema }: { schema: SchemaInfo[] }) {
 export function DatabaseSchema({ caseId }: DatabaseSchemaProps) {
   const [schema, setSchema] = React.useState<SchemaInfo[]>([]);
   const [viewMode, setViewMode] = React.useState<"table" | "graph">("table");
+  const [expandedTables, setExpandedTables] = React.useState<Set<string>>(
+    new Set()
+  );
   const { isLoading, error } = useDatabase(caseId);
+
+  const toggleTable = (tableName: string) => {
+    setExpandedTables((prev) => {
+      const next = new Set(prev);
+      if (next.has(tableName)) {
+        next.delete(tableName);
+      } else {
+        next.add(tableName);
+      }
+      return next;
+    });
+  };
 
   React.useEffect(() => {
     const fetchSchema = async () => {
@@ -314,49 +341,61 @@ export function DatabaseSchema({ caseId }: DatabaseSchemaProps) {
               key={table.tableName}
               className="bg-amber-100/50 rounded-lg overflow-hidden border border-amber-900/10"
             >
-              <div className="bg-amber-100 px-4 py-2 flex items-center">
-                <Table2 className="w-4 h-4 mr-2 text-amber-900" />
-                <span className="font-detective text-amber-900">
-                  {table.tableName}
-                </span>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="min-w-full">
-                  <thead>
-                    <tr className="bg-amber-50">
-                      <th className="px-6 py-3 text-left text-xs font-detective text-amber-900">
-                        Column
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-detective text-amber-900">
-                        Type
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-detective text-amber-900">
-                        Key
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-amber-200">
-                    {table.columns.map((column) => (
-                      <tr key={column.name}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
-                          {column.name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-amber-700">
-                          {column.type}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {column.isPrimary && (
-                            <Key className="w-4 h-4 text-amber-900" />
-                          )}
-                          {column.isForeign && (
-                            <Link className="w-4 h-4 text-amber-700" />
-                          )}
-                        </td>
+              <button
+                onClick={() => toggleTable(table.tableName)}
+                className="w-full bg-amber-100 px-4 py-2 flex items-center justify-between hover:bg-amber-200/50 transition-colors"
+              >
+                <div className="flex items-center">
+                  <Table2 className="w-4 h-4 mr-2 text-amber-900" />
+                  <span className="font-detective text-amber-900">
+                    {table.tableName}
+                  </span>
+                </div>
+                {expandedTables.has(table.tableName) ? (
+                  <ChevronUp className="w-4 h-4 text-amber-700" />
+                ) : (
+                  <ChevronDown className="w-4 h-4 text-amber-700" />
+                )}
+              </button>
+              {expandedTables.has(table.tableName) && (
+                <div className="overflow-x-auto">
+                  <table className="min-w-full">
+                    <thead>
+                      <tr className="bg-amber-50">
+                        <th className="px-6 py-3 text-left text-xs font-detective text-amber-900">
+                          Column
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-detective text-amber-900">
+                          Type
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-detective text-amber-900">
+                          Key
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-amber-200">
+                      {table.columns.map((column) => (
+                        <tr key={column.name}>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-amber-900">
+                            {column.name}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-amber-700">
+                            {column.type}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {column.isPrimary && (
+                              <Key className="w-4 h-4 text-amber-900" />
+                            )}
+                            {column.isForeign && (
+                              <Link className="w-4 h-4 text-amber-700" />
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           ))}
         </div>

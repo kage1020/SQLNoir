@@ -27,6 +27,7 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
               </span>
             </div>
             <div className="flex items-center gap-2 flex-1 sm:flex-initial">
+              <UserMenu user={userInfo} onSignOut={() => {}} />
               <a
                 href="https://github.com/stackblitz/sql-detective"
                 target="_blank"
@@ -38,7 +39,6 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
                 <Github className="w-5 h-5" />
                 <span className="hidden sm:inline">Star on GitHub</span>
               </a>
-              <UserMenu user={userInfo} onSignOut={() => {}} />
             </div>
           </div>
         </div>
