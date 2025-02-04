@@ -91,7 +91,7 @@ export default function App() {
                    text-amber-900 transition-colors duration-200 backdrop-blur-sm"
         >
           <Github className="w-5 h-5" />
-          <span className="hidden sm:inline">View on GitHub</span>
+          <span className="hidden sm:inline">Star on GitHub</span>
         </a>
       </div>
 
