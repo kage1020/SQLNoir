@@ -65,7 +65,7 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
                   )}
                 </div>
 
-                <p className="text-sm text-amber-700">{category.description}</p>
+                {/* <p className="text-sm text-amber-700">{category.description}</p> */}
 
                 <div className="space-y-4">
                   {cases[category.id as keyof typeof cases].map((caseData) => (

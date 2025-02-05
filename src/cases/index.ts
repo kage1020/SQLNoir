@@ -1,10 +1,11 @@
 import { Case } from "../types";
 import { Search, Award, Database } from "lucide-react";
 import vanishingBriefcaseCase from "./vanishing-briefcase";
+import theStolenSound from "./stolen-sound";
 
 // Export all cases
 export const cases: Record<string, Case[]> = {
-  beginner: [vanishingBriefcaseCase],
+  beginner: [vanishingBriefcaseCase, theStolenSound],
   intermediate: [],
   advanced: [],
 };
@@ -45,4 +46,4 @@ export function getCaseById(id: string): Case | undefined {
 }
 
 // Export individual cases for direct imports
-export { vanishingBriefcaseCase };
+export { vanishingBriefcaseCase, theStolenSound };

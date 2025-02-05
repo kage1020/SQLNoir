@@ -24,7 +24,7 @@ export function CaseBrief({ caseData }: CaseBriefProps) {
         </h2>
         <div className="prose text-amber-800">
           <p className="mb-4">{caseData.brief}</p>
-          <p>{caseData.description}</p>
+          {/* <p>{caseData.description}</p> */}
         </div>
       </div>
 

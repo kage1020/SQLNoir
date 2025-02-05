@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import { Send, CheckCircle, XCircle, Loader2 } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
-import type { Case } from '../../types';
+import React, { useState } from "react";
+import { Send, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { supabase } from "../../lib/supabase";
+import type { Case } from "../../types";
 
 interface SolutionSubmissionProps {
   caseData: Case;
   onSolve: () => void;
 }
 
-export function SolutionSubmission({ caseData, onSolve }: SolutionSubmissionProps) {
-  const [answer, setAnswer] = useState('');
+export function SolutionSubmission({
+  caseData,
+  onSolve,
+}: SolutionSubmissionProps) {
+  const [answer, setAnswer] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,26 +22,29 @@ export function SolutionSubmission({ caseData, onSolve }: SolutionSubmissionProp
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    
+
     try {
       // Check if the answer matches the solution (case-insensitive)
-      const isAnswerCorrect = answer.trim().toLowerCase() === caseData.solution.answer.toLowerCase();
-      
+      const isAnswerCorrect =
+        answer.trim().toLowerCase() === caseData.solution.answer.toLowerCase();
+
       if (isAnswerCorrect) {
-        const { data: { user } } = await supabase.auth.getUser();
-        
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
         if (user) {
           // Get current user info to check if case was already solved
           const { data: userInfo, error: fetchError } = await supabase
-            .from('user_info')
-            .select('completed_cases')
-            .eq('id', user.id)
+            .from("user_info")
+            .select("completed_cases")
+            .eq("id", user.id)
             .single();
 
           if (fetchError) throw fetchError;
 
-          const completedCases = Array.isArray(userInfo?.completed_cases) 
-            ? userInfo.completed_cases 
+          const completedCases = Array.isArray(userInfo?.completed_cases)
+            ? userInfo.completed_cases
             : [];
 
           // Only update if case hasn't been solved before
@@ -46,12 +52,15 @@ export function SolutionSubmission({ caseData, onSolve }: SolutionSubmissionProp
             completedCases.push(caseData.id);
 
             // Use SQL's addition operator to increment XP
-            const { error: updateError } = await supabase.rpc('increment_user_xp', {
-              user_id: user.id,
-              xp_amount: caseData.xpReward,
-              case_id: caseData.id,
-              cases_array: completedCases
-            });
+            const { error: updateError } = await supabase.rpc(
+              "increment_user_xp",
+              {
+                user_id: user.id,
+                xp_amount: caseData.xpReward,
+                case_id: caseData.id,
+                cases_array: completedCases,
+              }
+            );
 
             if (updateError) throw updateError;
           }
@@ -60,13 +69,17 @@ export function SolutionSubmission({ caseData, onSolve }: SolutionSubmissionProp
 
       setIsCorrect(isAnswerCorrect);
       setSubmitted(true);
-      
+
       if (isAnswerCorrect) {
         onSolve();
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred while updating progress');
-      console.error('Error updating solved cases:', err);
+      setError(
+        err instanceof Error
+          ? err.message
+          : "An error occurred while updating progress"
+      );
+      console.error("Error updating solved cases:", err);
     } finally {
       setIsLoading(false);
     }
@@ -75,10 +88,16 @@ export function SolutionSubmission({ caseData, onSolve }: SolutionSubmissionProp
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="bg-amber-100/50 p-6 rounded-lg border border-amber-900/10">
-        <h3 className="font-detective text-xl text-amber-900 mb-4">Submit Your Findings</h3>
-        
+        <h3 className="font-detective text-xl text-amber-900 mb-4">
+          Submit Your Findings
+        </h3>
+
         {submitted ? (
-          <div className={`p-6 rounded-lg ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+          <div
+            className={`p-6 rounded-lg ${
+              isCorrect ? "bg-green-100" : "bg-red-100"
+            }`}
+          >
             <div className="flex items-start">
               {isCorrect ? (
                 <CheckCircle className="w-6 h-6 text-green-600 mr-3 flex-shrink-0" />
@@ -86,16 +105,30 @@ export function SolutionSubmission({ caseData, onSolve }: SolutionSubmissionProp
                 <XCircle className="w-6 h-6 text-red-600 mr-3 flex-shrink-0" />
               )}
               <div>
-                <h4 className={`font-detective text-lg mb-2 ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
-                  {isCorrect ? 'Case Solved!' : 'Not Quite Right'}
+                <h4
+                  className={`font-detective text-lg mb-2 ${
+                    isCorrect ? "text-green-800" : "text-red-800"
+                  }`}
+                >
+                  {isCorrect ? "Case Solved!" : "Not Quite Right"}
                 </h4>
-                <p className={`mb-4 ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
-                  {isCorrect ? caseData.solution.successMessage : 'Try again with a different answer.'}
+                <p
+                  className={`mb-4 ${
+                    isCorrect ? "text-green-700" : "text-red-700"
+                  }`}
+                >
+                  {isCorrect
+                    ? caseData.solution.successMessage
+                    : "Try again with a different answer."}
                 </p>
                 {isCorrect && (
                   <div className="bg-white/50 p-4 rounded-lg">
-                    <h5 className="font-detective text-green-800 mb-2">Case Explanation</h5>
-                    <p className="text-green-700">{caseData.solution.explanation}</p>
+                    <h5 className="font-detective text-green-800 mb-2">
+                      Case Explanation
+                    </h5>
+                    <p className="text-green-700">
+                      {caseData.solution.explanation}
+                    </p>
                   </div>
                 )}
                 {!isCorrect && (
@@ -141,7 +174,7 @@ export function SolutionSubmission({ caseData, onSolve }: SolutionSubmissionProp
                 className={`
                   bg-amber-700 hover:bg-amber-600 text-amber-100 px-6 py-2 rounded-lg 
                   flex items-center font-detective transition-colors
-                  ${isLoading ? 'opacity-75 cursor-not-allowed' : ''}
+                  ${isLoading ? "opacity-75 cursor-not-allowed" : ""}
                 `}
               >
                 {isLoading ? (
