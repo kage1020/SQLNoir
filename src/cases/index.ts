@@ -1,19 +1,12 @@
 import { Case } from "../types";
 import { Search, Award, Database } from "lucide-react";
-import missingRecords from "./missing-records";
-import duplicateCustomer from "./duplicate-customer";
-import salesAnomaly from "./sales-anomaly";
-import missingIndex from "./missing-index";
-import dataBreach from "./data-breach";
-import legacyMigration from "./legacy-migration";
-import cyberHeist from "./cyber-heist";
-import laMurderCase from "./la-murder-case";
+import vanishingBriefcaseCase from "./vanishing-briefcase";
 
 // Export all cases
 export const cases: Record<string, Case[]> = {
-  beginner: [missingRecords, duplicateCustomer, cyberHeist, laMurderCase],
-  intermediate: [salesAnomaly, missingIndex],
-  advanced: [dataBreach, legacyMigration],
+  beginner: [vanishingBriefcaseCase],
+  intermediate: [],
+  advanced: [],
 };
 
 // Export categories with metadata
@@ -52,13 +45,4 @@ export function getCaseById(id: string): Case | undefined {
 }
 
 // Export individual cases for direct imports
-export {
-  missingRecords,
-  duplicateCustomer,
-  salesAnomaly,
-  missingIndex,
-  dataBreach,
-  legacyMigration,
-  cyberHeist,
-  laMurderCase,
-};
+export { vanishingBriefcaseCase };

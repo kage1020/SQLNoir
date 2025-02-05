@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { Book, Code, Send, Database, HelpCircle } from 'lucide-react';
-import { CaseBrief } from './case-study/CaseBrief';
-import { SQLWorkspace } from './case-study/SQLWorkspace';
-import { SolutionSubmission } from './case-study/SolutionSubmission';
-import { DatabaseSchema } from './case-study/DatabaseSchema';
-import { HintsAndTips } from './case-study/HintsAndTips';
-import type { Case } from '../types';
+import React, { useState } from "react";
+import { Book, Code, Send, Database, HelpCircle } from "lucide-react";
+import { CaseBrief } from "./case-study/CaseBrief";
+import { SQLWorkspace } from "./case-study/SQLWorkspace";
+import { SolutionSubmission } from "./case-study/SolutionSubmission";
+import { DatabaseSchema } from "./case-study/DatabaseSchema";
+import { HintsAndTips } from "./case-study/HintsAndTips";
+import type { Case } from "../types";
 
 const tabs = [
-  { id: 'brief', label: 'Case Brief', icon: Book },
-  { id: 'workspace', label: 'SQL Workspace', icon: Code },
-  { id: 'submission', label: 'Solution', icon: Send },
-  { id: 'schema', label: 'Schema', icon: Database },
-  { id: 'hints', label: 'Hints & Tips', icon: HelpCircle },
+  { id: "brief", label: "Case Brief", icon: Book },
+  { id: "workspace", label: "SQL Workspace", icon: Code },
+  { id: "submission", label: "Solution", icon: Send },
+  { id: "schema", label: "Schema", icon: Database },
+  { id: "hints", label: "Hints & Tips", icon: HelpCircle },
 ];
 
 interface CaseStudyProps {
@@ -21,7 +21,7 @@ interface CaseStudyProps {
 }
 
 export function CaseStudy({ caseData, onSolve }: CaseStudyProps) {
-  const [activeTab, setActiveTab] = useState('brief');
+  const [activeTab, setActiveTab] = useState("brief");
 
   return (
     <div className="min-h-screen bg-amber-50/50 p-4 md:p-8">
@@ -37,9 +37,11 @@ export function CaseStudy({ caseData, onSolve }: CaseStudyProps) {
                   onClick={() => setActiveTab(tab.id)}
                   className={`
                     flex items-center px-6 py-4 font-detective text-sm focus:outline-none
-                    ${isActive 
-                      ? 'bg-amber-100 text-amber-900 border-b-2 border-amber-900' 
-                      : 'text-amber-700 hover:bg-amber-100/50'}
+                    ${
+                      isActive
+                        ? "bg-amber-100 text-amber-900 border-b-2 border-amber-900"
+                        : "text-amber-700 hover:bg-amber-100/50"
+                    }
                   `}
                 >
                   <Icon className="w-4 h-4 mr-2" />
@@ -51,16 +53,13 @@ export function CaseStudy({ caseData, onSolve }: CaseStudyProps) {
         </div>
 
         <div className="p-6">
-          {activeTab === 'brief' && <CaseBrief caseData={caseData} />}
-          {activeTab === 'workspace' && <SQLWorkspace caseId={caseData.id} />}
-          {activeTab === 'submission' && (
-            <SolutionSubmission 
-              caseData={caseData}
-              onSolve={onSolve}
-            />
+          {activeTab === "brief" && <CaseBrief caseData={caseData} />}
+          {activeTab === "workspace" && <SQLWorkspace caseId={caseData.id} />}
+          {activeTab === "submission" && (
+            <SolutionSubmission caseData={caseData} onSolve={onSolve} />
           )}
-          {activeTab === 'schema' && <DatabaseSchema caseId={caseData.id} />}
-          {activeTab === 'hints' && <HintsAndTips />}
+          {activeTab === "schema" && <DatabaseSchema caseId={caseData.id} />}
+          {activeTab === "hints" && <HintsAndTips />}
         </div>
       </div>
     </div>

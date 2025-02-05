@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { FileText, Target, Lightbulb, ChevronDown, ChevronUp, CheckCircle } from 'lucide-react';
+import React, { useState } from "react";
+import {
+  FileText,
+  Target,
+  Lightbulb,
+  ChevronDown,
+  ChevronUp,
+  CheckCircle,
+} from "lucide-react";
 
 interface CaseBriefProps {
   caseData: any;
@@ -13,7 +20,7 @@ export function CaseBrief({ caseData }: CaseBriefProps) {
       <div className="bg-amber-100/50 p-6 rounded-lg border border-amber-900/10">
         <h2 className="font-detective text-2xl text-amber-900 mb-4 flex items-center">
           <FileText className="w-6 h-6 mr-2" />
-          Case #{caseData.id.split('-')[1]}: {caseData.title}
+          Case #{caseData.id.split("-")[1]}: {caseData.title}
         </h2>
         <div className="prose text-amber-800">
           <p className="mb-4">{caseData.brief}</p>
@@ -36,7 +43,7 @@ export function CaseBrief({ caseData }: CaseBriefProps) {
         </ul>
       </div>
 
-      <div className="bg-amber-100/50 rounded-lg border border-amber-900/10">
+      {/* <div className="bg-amber-100/50 rounded-lg border border-amber-900/10">
         <button
           onClick={() => setIsHintsOpen(!isHintsOpen)}
           className="w-full p-6 flex items-center justify-between text-left hover:bg-amber-100/80 transition-colors"
@@ -86,7 +93,7 @@ export function CaseBrief({ caseData }: CaseBriefProps) {
             </ul>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
