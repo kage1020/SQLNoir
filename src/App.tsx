@@ -84,7 +84,7 @@ export default function App() {
       <div className="absolute top-4 right-4 flex items-center gap-4">
         <UserMenu user={user} onSignOut={() => setUser(null)} />
         <a
-          href="https://github.com/stackblitz/sql-detective"
+          href="https://github.com/hristo2612/SQLNoir"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-100/80 hover:bg-amber-200/80 

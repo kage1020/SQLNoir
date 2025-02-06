@@ -29,7 +29,7 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
             <div className="flex items-center gap-2 flex-1 sm:flex-initial">
               <UserMenu user={userInfo} onSignOut={() => {}} />
               <a
-                href="https://github.com/stackblitz/sql-detective"
+                href="https://github.com/hristo2612/SQLNoir"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-100 hover:bg-amber-200 
