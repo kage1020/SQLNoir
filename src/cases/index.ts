@@ -1,11 +1,12 @@
 import { Case } from "../types";
 import { Search, Award, Database } from "lucide-react";
-import vanishingBriefcaseCase from "./vanishing-briefcase";
-import theStolenSound from "./stolen-sound";
+import vanishingBriefcaseCase from "./case-001";
+import theStolenSound from "./case-002";
+import miamiMarinaMurderCase from "./case-003";
 
 // Export all cases
 export const cases: Record<string, Case[]> = {
-  beginner: [vanishingBriefcaseCase, theStolenSound],
+  beginner: [vanishingBriefcaseCase, theStolenSound, miamiMarinaMurderCase],
   intermediate: [],
   advanced: [],
 };
@@ -38,12 +39,5 @@ export const categories = [
   },
 ];
 
-// Helper to get case by ID
-export function getCaseById(id: string): Case | undefined {
-  return Object.values(cases)
-    .flat()
-    .find((c) => c.id === id);
-}
-
 // Export individual cases for direct imports
-export { vanishingBriefcaseCase, theStolenSound };
+export { vanishingBriefcaseCase, theStolenSound, miamiMarinaMurderCase };

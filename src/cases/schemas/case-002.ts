@@ -1,56 +1,13 @@
-import type { Case } from "../types";
-
-/**
- * The Case of the Vanishing Vinyl
- *
- * In 1983, a prized vinyl record was stolen from West Hollywood Records. The details
- * of the crime have been scattered: you vaguely remember that the incident occurred on a
- * specific date at a well-known record store. To crack the case, follow these steps:
- *
- * Step 1: Search the crime_scene table using the known date and location to find the report.
- * Step 2: Retrieve all witnesses linked to that crime scene from the witnesses table.
- * Step 3: Use the clues from both witnesses to find the matching suspect in the suspects table.
- * Step 4: Query the interviews table for that suspect to reveal a confession.
- */
-const theStolenSound: Case = {
-  id: "case-002",
-  title: "The Stolen Sound",
-  difficulty: 1, // Beginner-friendly (4 steps)
-  description:
-    "A prized vinyl record has been stolen from West Hollywood Records. Follow the clues to uncover the culprit.",
-  xpReward: 100,
-  completed: false,
-  category: "beginner",
-  brief: `In the neon glow of 1980s Los Angeles, the West Hollywood Records store was rocked by a daring theft. A prized vinyl record, worth over $10,000, vanished during a busy evening, leaving the store owner desperate for answers.
-Vaguely recalling the details, you know the incident occurred on July 15, 1983, at this famous store. Your task is to track down the thief and bring them to justice.`,
-  objectives: [
-    "Retrieve the crime scene report for the record theft using the known date and location.",
-    "Retrieve witness records linked to that crime scene to obtain their clues.",
-    "Use the clues from the witnesses to find the suspect in the suspects table.",
-    "Retrieve the suspect’s interview transcript to confirm the confession.",
-  ],
-  solution: {
-    answer: "Rico Delgado",
-    successMessage:
-      "Excellent work, detective! Rico Delgado has confessed to stealing the prized vinyl record.",
-    explanation: `You began by querying the 'crime_scene' table with the date (19830715) and location (West Hollywood Records)
-to find the incident report. Then, you retrieved the two witness records from the 'witnesses' table, which revealed that:
-• The suspect wore a red bandana.
-• The suspect had a distinctive gold watch.
-Next, you queried the 'suspects' table, and there were 3 suspects matching the clues.
-Finally, you found the confession from Rico Delgado in the 'interviews' table.`,
-  },
-  // Database schema and initial data
-  schema: [
-    // 1. Crime Scene Table: Stores records of crimes.
-    `CREATE TABLE crime_scene (
+export default [
+  // 1. Crime Scene Table: Stores records of crimes.
+  `CREATE TABLE crime_scene (
       id INTEGER PRIMARY KEY,
       date INTEGER,
       type TEXT,
       location TEXT,
       description TEXT
     );`,
-    `INSERT INTO crime_scene (id, date, type, location, description) VALUES
+  `INSERT INTO crime_scene (id, date, type, location, description) VALUES
       (1, 20120909, 'theft', 'City Street', 'A guest was found dead in their hotel room. There were signs of a struggle and blood near the bed.'),
       (2, 19920415, 'theft', 'Downtown Bank', 'A briefcase was stolen during a robbery. A man in a suit was seen leaving the premises with it.'),
       (3, 20010702, 'murder', 'Corner Café', 'A body was found behind the café. No witnesses reported anything, but there was a knife wound in the back.'),
@@ -153,14 +110,14 @@ Finally, you found the confession from Rico Delgado in the 'interviews' table.`,
       (100, 20180320, 'murder', 'Club', 'A man was killed during a fight inside a club. The suspect was seen leaving the scene.')
     ;`,
 
-    // 2. Witnesses Table: Contains witness clues linked to a specific crime scene.
-    `CREATE TABLE witnesses (
+  // 2. Witnesses Table: Contains witness clues linked to a specific crime scene.
+  `CREATE TABLE witnesses (
       id INTEGER PRIMARY KEY,
       crime_scene_id INTEGER,
       clue TEXT,
       FOREIGN KEY (crime_scene_id) REFERENCES crime_scene(id)
     );`,
-    `INSERT INTO witnesses (id, crime_scene_id, clue) VALUES
+  `INSERT INTO witnesses (id, crime_scene_id, clue) VALUES
     (1, 66, 'There was a loud crash, and then I saw a person in a leather jacket running away.'),
     (2, 78, 'I saw a woman wearing a red scarf walking near the scene.'),
     (3, 44, NULL),
@@ -263,14 +220,14 @@ Finally, you found the confession from Rico Delgado in the 'interviews' table.`,
     (100, 84, NULL)
     ;`,
 
-    // 3. Suspects Table: Lists suspects with attributes that can be matched against witness clues.
-    `CREATE TABLE suspects (
+  // 3. Suspects Table: Lists suspects with attributes that can be matched against witness clues.
+  `CREATE TABLE suspects (
       id INTEGER PRIMARY KEY,
       name TEXT,
       bandana_color TEXT,
       accessory TEXT
     );`,
-    `INSERT INTO suspects (id, name, bandana_color, accessory) VALUES
+  `INSERT INTO suspects (id, name, bandana_color, accessory) VALUES
     (1, 'Carlos Mendoza', 'green', 'silver chain'),
     (2, 'Javier Silva', 'purple', 'gold necklace'),
     (3, 'Luis Garcia', 'yellow', 'black gloves'),
@@ -373,13 +330,13 @@ Finally, you found the confession from Rico Delgado in the 'interviews' table.`,
     (100, 'Manuel Cruz', 'green', 'gold necklace')
     ;`,
 
-    // 4. Interviews Table: Contains interview transcripts of the suspects.
-    `CREATE TABLE interviews (
+  // 4. Interviews Table: Contains interview transcripts of the suspects.
+  `CREATE TABLE interviews (
       suspect_id INTEGER,
       transcript TEXT,
       FOREIGN KEY (suspect_id) REFERENCES suspects(id)
     );`,
-    `INSERT INTO interviews (suspect_id, transcript) VALUES
+  `INSERT INTO interviews (suspect_id, transcript) VALUES
       (1, NULL),
       (2, 'I was at home the whole day, no idea what happened.'),
       (3, NULL),
@@ -581,7 +538,4 @@ Finally, you found the confession from Rico Delgado in the 'interviews' table.`,
       (199, 'I wasn’t involved, I was at the park.'),
       (200, 'I didn’t see anything suspicious, sorry.')
     ;`,
-  ],
-};
-
-export default theStolenSound;
+];

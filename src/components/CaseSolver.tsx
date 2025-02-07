@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { Book, Code, Send, Database, ArrowLeft, PenLine } from "lucide-react";
 import { CaseBrief } from "./case-study/CaseBrief";
 import { SQLWorkspace } from "./case-study/SQLWorkspace";

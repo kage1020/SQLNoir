@@ -1,47 +1,13 @@
-import type { Case } from "../types";
-
-/**
- * The Case of the Vanishing Briefcase
- * ------------------------------------
- * In the neon-lit streets of 1985, a briefcase containing sensitive documents
- * has mysteriously vanished from the Blue Note Lounge. A lone witness reported
- * seeing a man in a trench coat with a distinctive scar on his left cheek fleeing the scene.
- * Your task is to follow the clues: retrieve the crime scene details, narrow down the suspect list,
- * and confirm the culprit through their interview transcript.
- */
-const vanishingBriefcaseCase: Case = {
-  id: "case-001",
-  title: "The Vanishing Briefcase",
-  difficulty: 1, // Easy (3 steps)
-  description:
-    "A briefcase containing sensitive documents has vanished from the Blue Note Lounge. Follow the clues to identify the thief.",
-  xpReward: 50,
-  completed: false,
-  category: "beginner",
-  brief:
-    "Set in the gritty 1980s, a valuable briefcase has disappeared from the Blue Note Lounge. A witness reported that a man in a trench coat was seen fleeing the scene. Investigate the crime scene, review the list of suspects, and examine interview transcripts to reveal the culprit.",
-  objectives: [
-    "Retrieve the correct crime scene details to gather the key clue.",
-    "Identify the suspect whose profile matches the witness description.",
-    "Verify the suspect using their interview transcript.",
-  ],
-  solution: {
-    answer: "Vincent Malone",
-    successMessage:
-      "Congratulations, detective! You have successfully identified Vincent Malone as the culprit.",
-    explanation: `First, you retrieved the crime scene details from the 'crime_scene' table which mentioned a man in a trench coat with a scar on his left cheek. Next, querying the 'suspects' table narrowed the field down to two individuals. Finally, examining the 'interviews' table confirmed that Vincent Malone indeed stole the briefcase.`,
-  },
-  // Database schema and initial data
-  schema: [
-    // Create and populate the crime_scene table
-    `CREATE TABLE crime_scene (
+export default [
+  // Create and populate the crime_scene table
+  `CREATE TABLE crime_scene (
       id INTEGER PRIMARY KEY,
       date INTEGER,
       type TEXT,
       location TEXT,
       description TEXT
     );`,
-    `INSERT INTO crime_scene (id, date, type, location, description) VALUES
+  `INSERT INTO crime_scene (id, date, type, location, description) VALUES
       (1, 20120909, 'theft', 'City Street', 'A guest was found dead in their hotel room. There were signs of a struggle and blood near the bed.'),
       (2, 19920415, 'theft', 'Downtown Bank', 'A briefcase was stolen during a robbery. A man in a suit was seen leaving the premises with it.'),
       (3, 20010702, 'murder', 'Corner Café', 'A body was found behind the café. No witnesses reported anything, but there was a knife wound in the back.'),
@@ -144,14 +110,14 @@ const vanishingBriefcaseCase: Case = {
       (100, 20180320, 'murder', 'Club', 'A man was killed during a fight inside a club. The suspect was seen leaving the scene.')
     ;`,
 
-    // Create and populate the suspects table
-    `CREATE TABLE suspects (
+  // Create and populate the suspects table
+  `CREATE TABLE suspects (
       id INTEGER PRIMARY KEY,
       name TEXT,
       attire TEXT,
       scar TEXT
     );`,
-    `INSERT INTO suspects (id, name, attire, scar) VALUES
+  `INSERT INTO suspects (id, name, attire, scar) VALUES
       (1, 'Michael Johnson', 'none', 'none'),
       (2, 'Tony DeMarco', 'suit', 'none'),
       (3, 'Frankie Lombardi', 'trench coat', 'left cheek'),
@@ -554,13 +520,13 @@ const vanishingBriefcaseCase: Case = {
       (400, 'Benjamin Walker', 'jacket', 'none')
     ;`,
 
-    // Create and populate the interviews table
-    `CREATE TABLE interviews (
+  // Create and populate the interviews table
+  `CREATE TABLE interviews (
       suspect_id INTEGER,
       transcript TEXT,
       FOREIGN KEY(suspect_id) REFERENCES suspects(id)
     );`,
-    `INSERT INTO interviews (suspect_id, transcript) VALUES
+  `INSERT INTO interviews (suspect_id, transcript) VALUES
       (1, NULL),
       (2, 'I was at home the whole day, no idea what happened.'),
       (3, NULL),
@@ -762,7 +728,4 @@ const vanishingBriefcaseCase: Case = {
       (199, 'I wasn’t involved, I was at the park.'),
       (200, 'I didn’t see anything suspicious, sorry.')
     ;`,
-  ],
-};
-
-export default vanishingBriefcaseCase;
+];

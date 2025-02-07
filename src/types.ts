@@ -5,7 +5,7 @@ export interface Case {
   description: string;
   xpReward: number;
   completed: boolean;
-  category: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+  category: "beginner" | "intermediate" | "advanced" | "expert";
   brief: string;
   objectives: string[];
   solution: {
@@ -13,7 +13,6 @@ export interface Case {
     successMessage: string;
     explanation: string;
   };
-  schema: string[]; // SQL statements to set up the case database
 }
 
 export interface Achievement {
