@@ -25,7 +25,7 @@ const miamiMarinaMurderCase: Case = {
   completed: false,
   category: "intermediate",
   brief: `August 14, 1986. A body was found floating near the docks of Coral Bay Marina. Your job detective is to find the murderer and bring them to justice.
-This case might require the use of JOINs, filtering, wildcard searches, and logical deduction. Get to work, detective.`,
+This case might require the use of JOINs, wildcard searches, and logical deduction. Get to work, detective.`,
   objectives: [
     "Find the murderer. ( Start by finding the crime scene and go from there )",
   ],
