@@ -3,12 +3,13 @@ import { Search, Award, Database } from "lucide-react";
 import vanishingBriefcaseCase from "./case-001";
 import theStolenSound from "./case-002";
 import miamiMarinaMurderCase from "./case-003";
+import midnightMasqueradeMurderCase from "./case-004";
 
 // Export all cases
 export const cases: Record<string, Case[]> = {
   beginner: [vanishingBriefcaseCase, theStolenSound],
   intermediate: [miamiMarinaMurderCase],
-  advanced: [],
+  advanced: [midnightMasqueradeMurderCase],
 };
 
 // Export categories with metadata
@@ -40,4 +41,9 @@ export const categories = [
 ];
 
 // Export individual cases for direct imports
-export { vanishingBriefcaseCase, theStolenSound, miamiMarinaMurderCase };
+export {
+  vanishingBriefcaseCase,
+  theStolenSound,
+  miamiMarinaMurderCase,
+  midnightMasqueradeMurderCase,
+};

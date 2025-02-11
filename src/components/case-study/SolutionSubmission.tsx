@@ -131,6 +131,14 @@ export function SolutionSubmission({
                     </p>
                   </div>
                 )}
+                {isCorrect && (
+                  <div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-3">
+                    <p className="text-amber-800 text-sm font-medium">
+                      Note: You need an account to gain the XP reward for this
+                      case.
+                    </p>
+                  </div>
+                )}
                 {!isCorrect && (
                   <button
                     onClick={() => setSubmitted(false)}

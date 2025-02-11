@@ -96,7 +96,7 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
             })}
           </div>
           <div className="mt-8 text-center">
-            <div className="inline-flex items-center gap-1 px-4 py-2 rounded-full shadow-lg">
+            <div className="inline-flex items-center gap-1 px-4 pt-20">
               <p className="text-lg font-detective text-amber-800">
                 More coming soon...
               </p>
