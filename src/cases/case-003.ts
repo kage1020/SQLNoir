@@ -30,13 +30,13 @@ This case might require the use of JOINs, filtering, wildcard searches, and logi
     "Find the murderer. ( Start by finding the crime scene and go from there )",
   ],
   solution: {
-    answer: "Diego Ramirez",
+    answer: "Thomas Brown",
     successMessage:
-      "Great detective work! Diego Ramirez has confessed to the crime.",
+      "Great detective work! Thomas Brown has confessed to the crime.",
     explanation: `The investigation started with two suspects from the crime scene, one living on Ocean Drive and the other with a name ending in "ez".
 After interviewing them, hotel check-ins were filtered using two separate clues—first by date, then further refined using surveillance records.
 Only three people matched both filters.
-An interview with each of them revealed their role in the case, and after pressing further, Diego Ramirez confessed to the crime.`,
+An interview with each of them revealed their role in the case, and after pressing further, Thomas Brown confessed to the crime.`,
   },
 };
 

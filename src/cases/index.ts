@@ -6,8 +6,8 @@ import miamiMarinaMurderCase from "./case-003";
 
 // Export all cases
 export const cases: Record<string, Case[]> = {
-  beginner: [vanishingBriefcaseCase, theStolenSound, miamiMarinaMurderCase],
-  intermediate: [],
+  beginner: [vanishingBriefcaseCase, theStolenSound],
+  intermediate: [miamiMarinaMurderCase],
   advanced: [],
 };
 
