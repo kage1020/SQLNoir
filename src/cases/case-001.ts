@@ -1,14 +1,5 @@
 import type { Case } from "../types";
 
-/**
- * The Case of the Vanishing Briefcase
- * ------------------------------------
- * In the neon-lit streets of 1985, a briefcase containing sensitive documents
- * has mysteriously vanished from the Blue Note Lounge. A lone witness reported
- * seeing a man in a trench coat with a distinctive scar on his left cheek fleeing the scene.
- * Your task is to follow the clues: retrieve the crime scene details, narrow down the suspect list,
- * and confirm the culprit through their interview transcript.
- */
 const vanishingBriefcaseCase: Case = {
   id: "case-001",
   title: "The Vanishing Briefcase",

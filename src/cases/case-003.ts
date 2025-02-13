@@ -1,20 +1,5 @@
 import type { Case } from "../types";
 
-/**
- * The Miami Marina Murder
- *
- * August 14, 1986. A body was found near the docks of Coral Bay Marina.
- * Two potential suspects were last seen near the scene. One is known to live on a certain street,
- * and the other has a name ending in a specific way.
- *
- * Step 1: Identify the crime scene.
- * Step 2: Find both suspects based on the clues provided.
- * Step 3: Interview the suspects and obtain two separate clues.
- * Step 4: Use the first clue to filter hotel check-ins by exact date.
- * Step 5: Use the second clue to further filter hotel check-ins using a JOIN (reducing to 3 possible suspects).
- * Step 6: Find and interrogate all 3 suspects.
- * Step 7: Find the final confession.
- */
 const miamiMarinaMurderCase: Case = {
   id: "case-003",
   title: "The Miami Marina Murder",

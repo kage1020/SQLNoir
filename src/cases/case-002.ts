@@ -1,17 +1,5 @@
 import type { Case } from "../types";
 
-/**
- * The Case of the Vanishing Vinyl
- *
- * In 1983, a prized vinyl record was stolen from West Hollywood Records. The details
- * of the crime have been scattered: you vaguely remember that the incident occurred on a
- * specific date at a well-known record store. To crack the case, follow these steps:
- *
- * Step 1: Search the crime_scene table using the known date and location to find the report.
- * Step 2: Retrieve all witnesses linked to that crime scene from the witnesses table.
- * Step 3: Use the clues from both witnesses to find the matching suspect in the suspects table.
- * Step 4: Query the interviews table for that suspect to reveal a confession.
- */
 const theStolenSound: Case = {
   id: "case-002",
   title: "The Stolen Sound",
