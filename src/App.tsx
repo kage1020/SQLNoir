@@ -110,7 +110,7 @@ export default function App() {
           </h1>
 
           <p className="text-xl md:text-2xl text-amber-800 font-detective">
-            Solve mysteries through SQL. Ready to investigate?
+            Solve mysteries through SQL.
           </p>
 
           <button
