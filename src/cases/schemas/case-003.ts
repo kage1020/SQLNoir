@@ -758,12 +758,12 @@ export default [
   `CREATE TABLE surveillance_records (
       id INTEGER PRIMARY KEY,
       person_id INTEGER,
-      hotel_id INTEGER,
+      hotel_checkin_id INTEGER,
       suspicious_activity TEXT,
       FOREIGN KEY (person_id) REFERENCES person(id),
       FOREIGN KEY (hotel_id) REFERENCES hotel_checkins(id)
     );`,
-  `INSERT INTO surveillance_records (id, person_id, hotel_id, suspicious_activity) VALUES
+  `INSERT INTO surveillance_records (id, person_id, hotel_checkin_id, suspicious_activity) VALUES
       (9, 9, 67, 'Requested wake-up call'),
       (10, 10, 91, NULL),
       (11, 11, 15, 'Had breakfast at hotel restaurant'),
