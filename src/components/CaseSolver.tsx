@@ -35,6 +35,17 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
   const [isSolved, setIsSolved] = useState(false);
   const [isSideBySide, setIsSideBySide] = useState(false);
   const [secondaryTab, setSecondaryTab] = useState("schema");
+  const [activeTabSelector, setActiveTabSelector] = useState<1 | 2>(1);
+
+  // Function to handle side-by-side toggle
+  const handleSideBySideToggle = () => {
+    if (isSideBySide) {
+      // When disabling side-by-side, keep only the primary tab
+      setSecondaryTab("schema");
+      setActiveTabSelector(1);
+    }
+    setIsSideBySide(!isSideBySide);
+  };
 
   const handleCaseSolved = () => {
     setIsSolved(true);
@@ -54,6 +65,19 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
     }),
     [caseData]
   );
+
+  // Function to handle tab switching
+  const handleTabClick = (tabId: string) => {
+    if (isSideBySide) {
+      if (activeTabSelector === 1) {
+        setActiveTab(tabId);
+      } else {
+        setSecondaryTab(tabId);
+      }
+    } else {
+      setActiveTab(tabId);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-amber-50/50">
@@ -83,7 +107,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
                 return (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
+                    onClick={() => handleTabClick(tab.id)}
                     className={`
                     flex items-center px-3 py-2 rounded-lg font-detective text-sm whitespace-nowrap
                     ${
@@ -114,7 +138,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
           </button>
           <div className="flex items-center gap-4">
             <button
-              onClick={() => setIsSideBySide(!isSideBySide)}
+              onClick={handleSideBySideToggle}
               className={`
                 flex items-center px-3 py-1.5 rounded-lg font-detective text-sm
                 ${
@@ -145,49 +169,67 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
         <div className="bg-amber-50 rounded-lg shadow-lg border border-amber-900/10">
           {/* Desktop Navigation */}
           <div className="hidden lg:block border-b border-amber-900/10">
-            <div className="flex">
-              {tabs.map((tab) => {
-                const Icon = tab.icon;
-                const isActive =
-                  activeTab === tab.id ||
-                  (isSideBySide && secondaryTab === tab.id);
-                const isPrimary = activeTab === tab.id;
+            <div className="flex items-center justify-between">
+              <div className="flex">
+                {tabs.map((tab) => {
+                  const Icon = tab.icon;
+                  const isActiveInTab1 = activeTab === tab.id;
+                  const isActiveInTab2 =
+                    isSideBySide && secondaryTab === tab.id;
+                  const isActive = isActiveInTab1 || isActiveInTab2;
 
-                return (
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => handleTabClick(tab.id)}
+                      className={`
+                        flex items-center px-6 py-4 font-detective text-sm focus:outline-none whitespace-nowrap
+                        ${
+                          isActive
+                            ? `bg-amber-100 text-amber-900 border-b-2 ${
+                                isActiveInTab1
+                                  ? "border-amber-900"
+                                  : "border-amber-500"
+                              }`
+                            : "text-amber-700 hover:bg-amber-100/50"
+                        }
+                      `}
+                    >
+                      <Icon className="w-4 h-4 mr-2" />
+                      {tab.label}
+                      {isSideBySide && isActive && (
+                        <span className="ml-2 text-xs opacity-75">
+                          {isActiveInTab1 ? "(Tab 1)" : "(Tab 2)"}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+              {isSideBySide && (
+                <div className="flex items-center gap-2 bg-amber-100 rounded-lg p-1 mr-4">
                   <button
-                    key={tab.id}
-                    onClick={() => {
-                      if (isSideBySide && activeTab === tab.id) {
-                        // If clicking the active tab in side-by-side mode, swap tabs
-                        setActiveTab(secondaryTab);
-                        setSecondaryTab(tab.id);
-                      } else if (isSideBySide && secondaryTab === tab.id) {
-                        // If clicking the secondary tab, make it primary
-                        setActiveTab(tab.id);
-                        setSecondaryTab(activeTab);
-                      } else {
-                        // Normal tab switching
-                        setActiveTab(tab.id);
-                      }
-                    }}
-                    className={`
-                      flex items-center px-6 py-4 font-detective text-sm focus:outline-none whitespace-nowrap
-                      ${
-                        isActive
-                          ? `bg-amber-100 text-amber-900 border-b-2 ${
-                              isPrimary
-                                ? "border-amber-900"
-                                : "border-amber-500"
-                            }`
-                          : "text-amber-700 hover:bg-amber-100/50"
-                      }
-                    `}
+                    onClick={() => setActiveTabSelector(1)}
+                    className={`px-3 py-1.5 rounded-md font-detective text-sm transition-colors ${
+                      activeTabSelector === 1
+                        ? "bg-amber-200 text-amber-900"
+                        : "text-amber-700 hover:bg-amber-100"
+                    }`}
                   >
-                    <Icon className="w-4 h-4 mr-2" />
-                    {tab.label}
+                    Tab 1
                   </button>
-                );
-              })}
+                  <button
+                    onClick={() => setActiveTabSelector(2)}
+                    className={`px-3 py-1.5 rounded-md font-detective text-sm transition-colors ${
+                      activeTabSelector === 2
+                        ? "bg-amber-200 text-amber-900"
+                        : "text-amber-700 hover:bg-amber-100"
+                    }`}
+                  >
+                    Tab 2
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -198,22 +240,24 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
             }`}
           >
             <div className={`${isSideBySide ? "lg:w-1/2 min-w-0" : ""}`}>
+              {isSideBySide && (
+                <div className="mb-4 text-sm font-detective text-amber-900">
+                  Tab 1
+                </div>
+              )}
               {Object.entries(tabComponents).map(([id, component]) => (
-                <div
-                  key={id}
-                  style={{ display: activeTab === id ? "block" : "none" }}
-                >
+                <div key={id} className={activeTab === id ? "" : "hidden"}>
                   {component}
                 </div>
               ))}
             </div>
             {isSideBySide && (
               <div className="hidden lg:block lg:w-1/2 min-w-0 border-l border-amber-200 pl-6">
+                <div className="mb-4 text-sm font-detective text-amber-900">
+                  Tab 2
+                </div>
                 {Object.entries(tabComponents).map(([id, component]) => (
-                  <div
-                    key={id}
-                    style={{ display: secondaryTab === id ? "block" : "none" }}
-                  >
+                  <div key={id} className={secondaryTab === id ? "" : "hidden"}>
                     {component}
                   </div>
                 ))}

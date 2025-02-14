@@ -351,21 +351,30 @@ export function DatabaseSchema({ caseId }: DatabaseSchemaProps) {
               key={table.tableName}
               className="bg-amber-100/50 rounded-lg overflow-hidden border border-amber-900/10"
             >
-              <button
-                onClick={() => toggleTable(table.tableName)}
-                className="w-full bg-amber-100 px-4 py-2 flex items-center justify-between hover:bg-amber-200/50 transition-colors group"
-              >
-                <div className="flex items-center">
-                  <Table2 className="w-4 h-4 mr-2 text-amber-900" />
-                  <span className="font-detective text-amber-900">
-                    {table.tableName}
-                  </span>
+              <div className="relative">
+                <button
+                  onClick={() => toggleTable(table.tableName)}
+                  className="w-full bg-amber-100 px-4 py-2 flex items-center justify-between hover:bg-amber-200/50 transition-colors group"
+                >
+                  <div className="flex items-center">
+                    <Table2 className="w-4 h-4 mr-2 text-amber-900" />
+                    <span className="font-detective text-amber-900">
+                      {table.tableName}
+                    </span>
+                  </div>
+                  {expandedTables.has(table.tableName) ? (
+                    <ChevronUp className="w-4 h-4 text-amber-700" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4 text-amber-700" />
+                  )}
+                </button>
+                <div className="absolute right-14 top-1/2 -translate-y-1/2">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       copyToClipboard(table.tableName);
                     }}
-                    className={`ml-2 p-1 rounded-md transition-opacity hover:bg-amber-200 ${
+                    className={`p-1 rounded-md transition-opacity hover:bg-amber-200 ${
                       expandedTables.has(table.tableName)
                         ? "opacity-100"
                         : "opacity-0 group-hover:opacity-100"
@@ -375,12 +384,7 @@ export function DatabaseSchema({ caseId }: DatabaseSchemaProps) {
                     <Copy className="w-3.5 h-3.5 text-amber-700" />
                   </button>
                 </div>
-                {expandedTables.has(table.tableName) ? (
-                  <ChevronUp className="w-4 h-4 text-amber-700" />
-                ) : (
-                  <ChevronDown className="w-4 h-4 text-amber-700" />
-                )}
-              </button>
+              </div>
               {expandedTables.has(table.tableName) && (
                 <div className="overflow-x-auto">
                   <table className="min-w-full">

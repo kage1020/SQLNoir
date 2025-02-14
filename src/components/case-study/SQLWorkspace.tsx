@@ -104,6 +104,7 @@ export function SQLWorkspace({ caseId }: SQLWorkspaceProps) {
             onChange={setQuery}
             onExecute={handleExecute}
             placeholder="SELECT * FROM some_table WHERE..."
+            caseId={caseId}
           />
         </div>
       </div>

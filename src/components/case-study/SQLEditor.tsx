@@ -1,13 +1,53 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 
 // SQL keywords to highlight
 const SQL_KEYWORDS = [
-  'SELECT', 'FROM', 'WHERE', 'JOIN', 'LEFT', 'RIGHT', 'INNER', 'OUTER',
-  'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT', 'OFFSET', 'INSERT', 'UPDATE',
-  'DELETE', 'CREATE', 'ALTER', 'DROP', 'TABLE', 'INDEX', 'VIEW', 'INTO',
-  'VALUES', 'SET', 'NULL', 'NOT NULL', 'DEFAULT', 'PRIMARY KEY', 'FOREIGN KEY',
-  'AND', 'OR', 'IN', 'BETWEEN', 'LIKE', 'IS', 'AS', 'DISTINCT', 'COUNT',
-  'SUM', 'AVG', 'MIN', 'MAX', 'ON', 'ASC', 'DESC'
+  "SELECT",
+  "FROM",
+  "WHERE",
+  "JOIN",
+  "LEFT",
+  "RIGHT",
+  "INNER",
+  "OUTER",
+  "GROUP BY",
+  "ORDER BY",
+  "HAVING",
+  "LIMIT",
+  "OFFSET",
+  "INSERT",
+  "UPDATE",
+  "DELETE",
+  "CREATE",
+  "ALTER",
+  "DROP",
+  "TABLE",
+  "INDEX",
+  "VIEW",
+  "INTO",
+  "VALUES",
+  "SET",
+  "NULL",
+  "NOT NULL",
+  "DEFAULT",
+  "PRIMARY KEY",
+  "FOREIGN KEY",
+  "AND",
+  "OR",
+  "IN",
+  "BETWEEN",
+  "LIKE",
+  "IS",
+  "AS",
+  "DISTINCT",
+  "COUNT",
+  "SUM",
+  "AVG",
+  "MIN",
+  "MAX",
+  "ON",
+  "ASC",
+  "DESC",
 ];
 
 interface SQLEditorProps {
@@ -15,16 +55,36 @@ interface SQLEditorProps {
   onChange: (value: string) => void;
   onExecute: () => void;
   placeholder?: string;
+  caseId: string;
 }
 
 interface Token {
-  type: 'keyword' | 'string' | 'number' | 'comment' | 'text';
+  type: "keyword" | "string" | "number" | "comment" | "text";
   value: string;
 }
 
-export function SQLEditor({ value, onChange, onExecute, placeholder }: SQLEditorProps) {
+export function SQLEditor({
+  value,
+  onChange,
+  onExecute,
+  placeholder,
+  caseId,
+}: SQLEditorProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const highlightRef = useRef<HTMLDivElement>(null);
+
+  // Load saved query from localStorage on mount
+  useEffect(() => {
+    const savedQuery = localStorage.getItem(`sqlnoir-query-${caseId}`);
+    if (savedQuery && value === "") {
+      onChange(savedQuery);
+    }
+  }, [caseId]);
+
+  // Save query to localStorage on change
+  useEffect(() => {
+    localStorage.setItem(`sqlnoir-query-${caseId}`, value);
+  }, [value, caseId]);
 
   // Handle keyboard shortcuts
   useEffect(() => {
@@ -33,21 +93,21 @@ export function SQLEditor({ value, onChange, onExecute, placeholder }: SQLEditor
 
     const handleKeyDown = (e: KeyboardEvent) => {
       // Check for Ctrl+Enter or Cmd+Enter
-      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
         e.preventDefault();
         onExecute();
       }
     };
 
-    textarea.addEventListener('keydown', handleKeyDown);
-    return () => textarea.removeEventListener('keydown', handleKeyDown);
+    textarea.addEventListener("keydown", handleKeyDown);
+    return () => textarea.removeEventListener("keydown", handleKeyDown);
   }, [onExecute]);
 
   // Sync scroll between textarea and highlight div
   useEffect(() => {
     const textarea = textareaRef.current;
     const highlight = highlightRef.current;
-    
+
     if (!textarea || !highlight) return;
 
     const handleScroll = () => {
@@ -55,8 +115,8 @@ export function SQLEditor({ value, onChange, onExecute, placeholder }: SQLEditor
       highlight.scrollLeft = textarea.scrollLeft;
     };
 
-    textarea.addEventListener('scroll', handleScroll);
-    return () => textarea.removeEventListener('scroll', handleScroll);
+    textarea.addEventListener("scroll", handleScroll);
+    return () => textarea.removeEventListener("scroll", handleScroll);
   }, []);
 
   const tokenize = (code: string): Token[] => {
@@ -65,9 +125,11 @@ export function SQLEditor({ value, onChange, onExecute, placeholder }: SQLEditor
 
     while (remaining.length > 0) {
       // Check for keywords
-      const keywordMatch = remaining.match(new RegExp(`^(${SQL_KEYWORDS.join('|')})\\b`, 'i'));
+      const keywordMatch = remaining.match(
+        new RegExp(`^(${SQL_KEYWORDS.join("|")})\\b`, "i")
+      );
       if (keywordMatch) {
-        tokens.push({ type: 'keyword', value: keywordMatch[0] });
+        tokens.push({ type: "keyword", value: keywordMatch[0] });
         remaining = remaining.slice(keywordMatch[0].length);
         continue;
       }
@@ -75,7 +137,7 @@ export function SQLEditor({ value, onChange, onExecute, placeholder }: SQLEditor
       // Check for strings
       const stringMatch = remaining.match(/^(['"][^'"]*['"])/);
       if (stringMatch) {
-        tokens.push({ type: 'string', value: stringMatch[0] });
+        tokens.push({ type: "string", value: stringMatch[0] });
         remaining = remaining.slice(stringMatch[0].length);
         continue;
       }
@@ -83,7 +145,7 @@ export function SQLEditor({ value, onChange, onExecute, placeholder }: SQLEditor
       // Check for numbers
       const numberMatch = remaining.match(/^(\d+(\.\d+)?)/);
       if (numberMatch) {
-        tokens.push({ type: 'number', value: numberMatch[0] });
+        tokens.push({ type: "number", value: numberMatch[0] });
         remaining = remaining.slice(numberMatch[0].length);
         continue;
       }
@@ -91,13 +153,13 @@ export function SQLEditor({ value, onChange, onExecute, placeholder }: SQLEditor
       // Check for comments
       const commentMatch = remaining.match(/^(--[^\n]*)/);
       if (commentMatch) {
-        tokens.push({ type: 'comment', value: commentMatch[0] });
+        tokens.push({ type: "comment", value: commentMatch[0] });
         remaining = remaining.slice(commentMatch[0].length);
         continue;
       }
 
       // Take one character as text
-      tokens.push({ type: 'text', value: remaining[0] });
+      tokens.push({ type: "text", value: remaining[0] });
       remaining = remaining.slice(1);
     }
 
@@ -114,14 +176,30 @@ export function SQLEditor({ value, onChange, onExecute, placeholder }: SQLEditor
         {value ? (
           tokenize(value).map((token, i) => {
             switch (token.type) {
-              case 'keyword':
-                return <span key={i} className="sql-keyword">{token.value}</span>;
-              case 'string':
-                return <span key={i} className="sql-string">{token.value}</span>;
-              case 'number':
-                return <span key={i} className="sql-number">{token.value}</span>;
-              case 'comment':
-                return <span key={i} className="sql-comment">{token.value}</span>;
+              case "keyword":
+                return (
+                  <span key={i} className="sql-keyword">
+                    {token.value}
+                  </span>
+                );
+              case "string":
+                return (
+                  <span key={i} className="sql-string">
+                    {token.value}
+                  </span>
+                );
+              case "number":
+                return (
+                  <span key={i} className="sql-number">
+                    {token.value}
+                  </span>
+                );
+              case "comment":
+                return (
+                  <span key={i} className="sql-comment">
+                    {token.value}
+                  </span>
+                );
               default:
                 return <span key={i}>{token.value}</span>;
             }
@@ -137,7 +215,7 @@ export function SQLEditor({ value, onChange, onExecute, placeholder }: SQLEditor
         placeholder={placeholder}
         spellCheck={false}
         className="w-full h-48 bg-transparent text-transparent caret-amber-100 p-4 resize-none focus:outline-none"
-        style={{ caretColor: '#fef3c7' }}
+        style={{ caretColor: "#fef3c7" }}
       />
     </div>
   );
