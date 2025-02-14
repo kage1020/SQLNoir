@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { ChevronRight, Github, Coffee } from "lucide-react";
+import { ChevronRight, Github, Coffee, Share2 } from "lucide-react";
 import { BsIncognito } from "react-icons/bs";
 import { Dashboard } from "./components/Dashboard";
 import { CaseSolver } from "./components/CaseSolver";
 import { UserMenu } from "./components/auth/UserMenu";
+import { SharePopup } from "./components/SharePopup";
 import { supabase } from "./lib/supabase";
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
   const [selectedCase, setSelectedCase] = useState<any>(null);
   const [user, setUser] = useState<any>(null);
   const [userInfo, setUserInfo] = useState<any>(null);
+  const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
 
   const fetchUserInfo = async (userId: string) => {
     try {
@@ -62,6 +64,10 @@ export default function App() {
   if (selectedCase) {
     return (
       <>
+        <SharePopup
+          isOpen={isSharePopupOpen}
+          onClose={() => setIsSharePopupOpen(false)}
+        />
         <CaseSolver
           caseData={selectedCase}
           onBack={() => setSelectedCase(null)}
@@ -74,6 +80,10 @@ export default function App() {
   if (started) {
     return (
       <>
+        <SharePopup
+          isOpen={isSharePopupOpen}
+          onClose={() => setIsSharePopupOpen(false)}
+        />
         <Dashboard onCaseSelect={setSelectedCase} userInfo={userInfo} />
       </>
     );
@@ -81,8 +91,21 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-amber-50/50 flex flex-col items-center justify-center p-4 md:p-8">
+      <SharePopup
+        isOpen={isSharePopupOpen}
+        onClose={() => setIsSharePopupOpen(false)}
+      />
       <div className="absolute top-4 right-4 flex items-center gap-4">
         <UserMenu user={user} onSignOut={() => setUser(null)} />
+        <button
+          onClick={() => setIsSharePopupOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-100/80 hover:bg-amber-200/80 
+                   text-amber-900 transition-colors duration-200 backdrop-blur-sm"
+          title="Share SQL Noir"
+        >
+          <Share2 className="w-5 h-5" />
+          <span className="hidden sm:inline">Share</span>
+        </button>
         <a
           href="https://github.com/hristo2612/SQLNoir"
           target="_blank"

@@ -1,8 +1,9 @@
-import React from "react";
+import { useState } from "react";
 import { CaseFile } from "./CaseFile";
-import { Search, Award, Database, Lock, Github, Coffee } from "lucide-react";
+import { Lock, Github, Coffee, Share2 } from "lucide-react";
 import { UserMenu } from "./auth/UserMenu";
 import { cases, categories } from "../cases";
+import { SharePopup } from "./SharePopup";
 
 interface DashboardProps {
   onCaseSelect: (caseData: any) => void;
@@ -10,6 +11,7 @@ interface DashboardProps {
 }
 
 export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
+  const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
   const currentXP = userInfo?.xp || 0;
   const solvedCases = userInfo?.completed_cases || [];
 
@@ -17,6 +19,10 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
 
   return (
     <div className="min-h-screen bg-amber-50/50">
+      <SharePopup
+        isOpen={isSharePopupOpen}
+        onClose={() => setIsSharePopupOpen(false)}
+      />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-8">
           <h2 className="font-detective text-3xl text-amber-900">Case Files</h2>
@@ -50,6 +56,14 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
                 <Coffee className="w-5 h-5" />
                 <span className="hidden sm:inline">Buy Me a Coffee</span>
               </a>
+              <button
+                onClick={() => setIsSharePopupOpen(true)}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-100 hover:bg-amber-200 
+                         text-amber-900 transition-colors duration-200"
+                title="Share SQL Noir"
+              >
+                <Share2 className="w-5 h-5" />
+              </button>
             </div>
           </div>
         </div>
@@ -76,8 +90,6 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
                       </div>
                     )}
                   </div>
-
-                  {/* <p className="text-sm text-amber-700">{category.description}</p> */}
 
                   <div className="space-y-4">
                     {cases[category.id as keyof typeof cases].map(
