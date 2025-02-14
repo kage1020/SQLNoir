@@ -4,7 +4,7 @@ Thank you for your interest in contributing to SQL Detective! This guide will he
 
 ### Adding a New Case
 
-1. Create a new file in `src/cases/` using kebab-case naming (e.g., `missing-records.ts`)
+1. Create a new file in `src/cases/` using kebab-case naming (e.g., `case-XXX.ts`)
 2. Copy the structure from `case-template.ts`
 3. Fill in all the required fields:
    - Unique `id` (format: `case-XXX`)
@@ -15,36 +15,30 @@ Thank you for your interest in contributing to SQL Detective! This guide will he
    - Detailed `brief`
    - Clear `objectives`
    - Complete `solution` with answer and explanations
-   - SQL `schema` array with all required tables and data
-
-4. Add your case to `src/cases/index.ts`:
+4. Add the database schema to `src/cases/schemas/case-XXX.ts`
+5. Add your case to `src/cases/index.ts`:
    - Import your case
    - Add it to the appropriate category in the `cases` object
    - Export it in the named exports
 
 ### Case Guidelines
 
-1. **Difficulty Levels**
-   - 1: Basic SELECT queries, simple JOINs
-   - 2: Complex JOINs, subqueries
-   - 3: Advanced queries, optimization problems
-   - 4: Complex data modeling, performance tuning
-   - 5: Expert-level challenges
+1. **XP Rewards**
 
-2. **XP Rewards**
    - Should scale with difficulty
    - Beginner (50-100 XP)
    - Intermediate (100-200 XP)
    - Advanced (200-300 XP)
    - Expert (300+ XP)
 
-3. **Schema Design**
+2. **Schema Design**
+
    - Keep tables focused and relevant
    - Include enough sample data to make the case interesting
    - Use meaningful column names
    - Include appropriate constraints (PRIMARY KEY, FOREIGN KEY)
 
-4. **Solution**
+3. **Solution**
    - Answer should be clear and unambiguous
    - Explanation should help users understand the solution
    - Success message should be encouraging
