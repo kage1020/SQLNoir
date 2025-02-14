@@ -761,7 +761,7 @@ export default [
       hotel_checkin_id INTEGER,
       suspicious_activity TEXT,
       FOREIGN KEY (person_id) REFERENCES person(id),
-      FOREIGN KEY (hotel_id) REFERENCES hotel_checkins(id)
+      FOREIGN KEY (hotel_checkin_id) REFERENCES hotel_checkins(id)
     );`,
   `INSERT INTO surveillance_records (id, person_id, hotel_checkin_id, suspicious_activity) VALUES
       (9, 9, 67, 'Requested wake-up call'),
