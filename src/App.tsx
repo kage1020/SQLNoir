@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronRight, Github } from "lucide-react";
+import { ChevronRight, Github, Coffee } from "lucide-react";
 import { BsIncognito } from "react-icons/bs";
 import { Dashboard } from "./components/Dashboard";
 import { CaseSolver } from "./components/CaseSolver";
@@ -92,6 +92,16 @@ export default function App() {
         >
           <Github className="w-5 h-5" />
           <span className="hidden sm:inline">Star on GitHub</span>
+        </a>
+        <a
+          href="https://buymeacoffee.com/hristobogoev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-100/80 hover:bg-amber-200/80 
+                   text-amber-900 transition-colors duration-200 backdrop-blur-sm"
+        >
+          <Coffee className="w-5 h-5" />
+          <span className="hidden sm:inline">Buy Me a Coffee</span>
         </a>
       </div>
 
