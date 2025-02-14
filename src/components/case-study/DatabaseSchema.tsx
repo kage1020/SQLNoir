@@ -6,6 +6,7 @@ import {
   Loader2,
   ChevronDown,
   ChevronUp,
+  Copy,
 } from "lucide-react";
 import ReactFlow, {
   Node,
@@ -53,6 +54,15 @@ interface TableNodeProps {
     }[];
   };
 }
+
+// Add copy to clipboard function
+const copyToClipboard = async (text: string) => {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    console.error("Failed to copy text: ", err);
+  }
+};
 
 function TableNode({ data }: TableNodeProps) {
   return (
@@ -343,13 +353,27 @@ export function DatabaseSchema({ caseId }: DatabaseSchemaProps) {
             >
               <button
                 onClick={() => toggleTable(table.tableName)}
-                className="w-full bg-amber-100 px-4 py-2 flex items-center justify-between hover:bg-amber-200/50 transition-colors"
+                className="w-full bg-amber-100 px-4 py-2 flex items-center justify-between hover:bg-amber-200/50 transition-colors group"
               >
                 <div className="flex items-center">
                   <Table2 className="w-4 h-4 mr-2 text-amber-900" />
                   <span className="font-detective text-amber-900">
                     {table.tableName}
                   </span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      copyToClipboard(table.tableName);
+                    }}
+                    className={`ml-2 p-1 rounded-md transition-opacity hover:bg-amber-200 ${
+                      expandedTables.has(table.tableName)
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-100"
+                    }`}
+                    title="Copy table name"
+                  >
+                    <Copy className="w-3.5 h-3.5 text-amber-700" />
+                  </button>
                 </div>
                 {expandedTables.has(table.tableName) ? (
                   <ChevronUp className="w-4 h-4 text-amber-700" />
