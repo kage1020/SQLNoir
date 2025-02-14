@@ -89,7 +89,7 @@ export function SQLEditor({ value, onChange, onExecute, placeholder }: SQLEditor
       }
 
       // Check for comments
-      const commentMatch = remaining.match(/^(--.*$)/m);
+      const commentMatch = remaining.match(/^(--[^\n]*)/);
       if (commentMatch) {
         tokens.push({ type: 'comment', value: commentMatch[0] });
         remaining = remaining.slice(commentMatch[0].length);
