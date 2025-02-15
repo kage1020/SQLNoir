@@ -117,8 +117,12 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
                     }
                   `}
                   >
-                    <Icon className="w-4 h-4 lg:mr-2" />
-                    {/* {tab.label} */}
+                    {isActive ? (
+                      <Icon className="w-4 h-4 mr-2" />
+                    ) : (
+                      <Icon className="w-4 h-4 lg:mr-2" />
+                    )}
+                    {isActive ? tab.label : ""}
                   </button>
                 );
               })}
