@@ -240,6 +240,9 @@ export function SQLEditor({
     const textarea = textareaRef.current;
     if (!textarea) return;
 
+    // Prevent default button behavior that might cause focus loss
+    event?.preventDefault();
+
     const cursorPosition = textarea.selectionStart;
     const textBeforeCursor = value.substring(0, cursorPosition);
     const textAfterCursor = value.substring(cursorPosition);
@@ -249,11 +252,21 @@ export function SQLEditor({
     const newValue =
       textBeforeCursor.slice(0, -lastWord.length) +
       suggestion.text +
-      " " +
-      textAfterCursor;
+      textAfterCursor; // Removed space addition
+
+    // Keep track of where cursor should be after the update
+    const newCursorPosition =
+      cursorPosition - lastWord.length + suggestion.text.length;
+
     onChange(newValue);
     setSuggestions([]);
     setSuggestionPosition(null);
+
+    // Ensure textarea keeps focus and cursor position is maintained
+    requestAnimationFrame(() => {
+      textarea.focus();
+      textarea.setSelectionRange(newCursorPosition, newCursorPosition);
+    });
   };
 
   const tokenize = (code: string): Token[] => {
@@ -363,15 +376,20 @@ export function SQLEditor({
               suggestionPosition.left,
               window.innerWidth - 220
             )}px`,
+            transform: "translateZ(0)", // Force GPU acceleration
           }}
         >
           {suggestions.map((suggestion, index) => (
             <button
               key={index}
-              className="w-full px-4 py-3 text-left text-amber-100 hover:bg-amber-700 first:rounded-t-lg last:rounded-b-lg border-b border-amber-700 last:border-0 flex items-center"
-              onClick={() => insertSuggestion(suggestion)}
+              className="w-full px-4 py-3 text-left text-amber-100 hover:bg-amber-700 first:rounded-t-lg last:rounded-b-lg border-b border-amber-700 last:border-0 flex items-center touch-manipulation truncate"
+              onMouseDown={(e) => {
+                // Prevent focus loss and view shifting
+                e.preventDefault();
+                insertSuggestion(suggestion);
+              }}
             >
-              <span className="flex-1">{suggestion.text}</span>
+              <span className="flex-1 truncate">{suggestion.text}</span>
               <span className="text-xs text-amber-400 ml-2">
                 {suggestion.type === "table" ? "table" : "keyword"}
               </span>
