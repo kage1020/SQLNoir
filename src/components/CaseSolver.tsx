@@ -98,7 +98,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
 
         {/* Mobile Navigation - Always Visible */}
         <div className="border-t border-amber-200 overflow-x-auto">
-          <div className="flex p-2 gap-2 min-w-full">
+          <div className="flex p-2 gap-2 min-w-full justify-center lg:justify-start">
             {tabs
               .filter((tab) => !tab.desktopOnly)
               .map((tab) => {
@@ -117,8 +117,8 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
                     }
                   `}
                   >
-                    <Icon className="w-4 h-4 mr-2" />
-                    {tab.label}
+                    <Icon className="w-4 h-4 lg:mr-2" />
+                    {/* {tab.label} */}
                   </button>
                 );
               })}
@@ -165,7 +165,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 pb-8">
+      <div className="max-w-7xl mx-auto px-4 pb-8 mt-4 lg:mt-0">
         <div className="bg-amber-50 rounded-lg shadow-lg border border-amber-900/10">
           {/* Desktop Navigation */}
           <div className="hidden lg:block border-b border-amber-900/10">
