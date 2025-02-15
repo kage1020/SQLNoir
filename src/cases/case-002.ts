@@ -15,7 +15,7 @@ Vaguely recalling the details, you know the incident occurred on July 15, 1983, 
     "Retrieve the crime scene report for the record theft using the known date and location.",
     "Retrieve witness records linked to that crime scene to obtain their clues.",
     "Use the clues from the witnesses to find the suspect in the suspects table.",
-    "Retrieve the suspect’s interview transcript to confirm the confession.",
+    "Retrieve the suspect's interview transcript to confirm the confession.",
   ],
   solution: {
     answer: "Rico Delgado",

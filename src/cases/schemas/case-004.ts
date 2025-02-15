@@ -1290,7 +1290,7 @@ export default [
     (2, 43, 'XYZ1234', 'Ford', 'Mustang'),
     (3, 189, 'HN-CIV123', 'Honda', 'Civic'),
     (4, 77, 'LMNOPQ', 'Toyota', 'Corolla'),
-    (5, 12, 'ABC123', 'Lamborghini', 'Countach'),
+    (5, 12, 'ABC123', 'Audi', '2000'),
     (6, 167, 'DEF456', 'Chevrolet', 'Camaro'),
     (7, 34, 'GHI789', 'Pontiac', 'Firebird'),
     (8, 198, 'JKL012', 'Toyota', 'Celica'),
