@@ -128,7 +128,7 @@ export default [
     (9, 'Samuel King', 'Musician', '99 Coral Dr'),
     (10, 'Angela Martin', 'Journalist', '77 Sun Blvd'),
     (11, 'Antonio Rossi', 'Auto Importer', '999 Dark Alley'),
-    (12, 'Marco Garcia', 'Carpenter', '777 Industrial Way'),
+    (12, 'Marco Garcia', 'Auto Dealer', '777 Industrial Way'),
     (13, 'James Wilson', 'Teacher', '123 Maple Street'),
     (14, 'Sarah Johnson', 'Doctor', '456 Oak Avenue'),
     (15, 'Michael Brown', 'Engineer', '789 Pine Road'),
