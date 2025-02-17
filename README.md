@@ -19,16 +19,44 @@ Welcome to SQL Noir, where you're a data detective solving criminal cases throug
    ```bash
    npm install
    ```
-3. Create a `.env.local` file and set the following environment variables:
+3. Go to [Supabase](https://supabase.com/) and create a new project
+4. Copy the generated `anon public key` and `Project URL` from the project
+5. Create a `.env.local` file at the root of the project and set the following environment variables:
    ```bash
    VITE_SUPABASE_ANON_KEY=your_anon_key
    VITE_SUPABASE_URL=your_supabase_url
    ```
-4. Start your investigation:
+6. Install Supabase CLI:
+
+   - Follow the instructions at [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started)
+
+7. Login to Supabase:
+
    ```bash
-   npm run dev
+   supabase login
    ```
-5. Open your browser and navigate to `http://localhost:5173`
+
+8. Link your project ( You need to be in the root of the project to run this command ):
+
+   ```bash
+   supabase link
+   ```
+
+   - Select the project you just created when prompted
+
+9. Run database migrations:
+
+   ```bash
+   supabase db push
+   ```
+
+10. Start the development server:
+
+    ```bash
+    npm run dev
+    ```
+
+11. Open your browser and navigate to `http://localhost:5173`
 
 ## Case Files
 
