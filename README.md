@@ -19,11 +19,16 @@ Welcome to SQL Noir, where you're a data detective solving criminal cases throug
    ```bash
    npm install
    ```
-3. Start your investigation:
+3. Create a `.env.local` file and set the following environment variables:
+   ```bash
+   VITE_SUPABASE_ANON_KEY=your_anon_key
+   VITE_SUPABASE_URL=your_supabase_url
+   ```
+4. Start your investigation:
    ```bash
    npm run dev
    ```
-4. Open your browser and navigate to `http://localhost:5173`
+5. Open your browser and navigate to `http://localhost:5173`
 
 ## Case Files
 
