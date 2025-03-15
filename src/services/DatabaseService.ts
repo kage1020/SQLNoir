@@ -32,7 +32,7 @@ class DatabaseService {
 
     try {
       this.SQL = await initSqlJs({
-        locateFile: (file) => `https://sql.js.org/dist/${file}`,
+        locateFile: (file) => `/${file}`
       });
       this.initialized = true;
     } catch (error) {
