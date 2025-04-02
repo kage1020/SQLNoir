@@ -13,6 +13,7 @@ export default function App() {
   const [user, setUser] = useState<any>(null);
   const [userInfo, setUserInfo] = useState<any>(null);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchUserInfo = async (userId: string) => {
     try {
@@ -31,12 +32,16 @@ export default function App() {
 
   useEffect(() => {
     // Get initial session
+    setLoading(true);
     supabase.auth.getSession().then(({ data: { session } }) => {
       const currentUser = session?.user ?? null;
       setUser(currentUser);
       if (currentUser) {
+        // Auto-start if user is logged in
+        setStarted(true);
         fetchUserInfo(currentUser.id);
       }
+      setLoading(false);
     });
 
     // Listen for auth changes
@@ -45,7 +50,10 @@ export default function App() {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       const currentUser = session?.user ?? null;
       setUser(currentUser);
+
       if (currentUser) {
+        // Auto-start if user logs in
+        setStarted(true);
         fetchUserInfo(currentUser.id);
       } else {
         setUserInfo(null);
@@ -60,6 +68,15 @@ export default function App() {
       await fetchUserInfo(user.id);
     }
   };
+
+  // Show loading state while checking authentication
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-amber-50/50 flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-amber-700 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   if (selectedCase) {
     return (
