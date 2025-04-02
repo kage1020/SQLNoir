@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { User, LogOut, Award } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
-import { AuthModal } from './AuthModal';
-import { ProfileMenu } from './ProfileMenu';
+import { useState } from "react";
+import { User } from "lucide-react";
+import { supabase } from "../../lib/supabase";
+import { AuthModal } from "./AuthModal";
+import { ProfileMenu } from "./ProfileMenu";
 
 interface UserMenuProps {
   user: any;
@@ -31,7 +31,10 @@ export function UserMenu({ user, onSignOut }: UserMenuProps) {
         >
           <User className="w-5 h-5" />
         </button>
-        <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+        <AuthModal
+          isOpen={showAuthModal}
+          onClose={() => setShowAuthModal(false)}
+        />
       </>
     );
   }
@@ -41,12 +44,15 @@ export function UserMenu({ user, onSignOut }: UserMenuProps) {
       <button
         onClick={() => setShowProfileMenu(!showProfileMenu)}
         className="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-100 hover:bg-amber-200 
-                 text-amber-900 transition-colors duration-200"
+                 text-amber-900 transition-colors duration-200 relative"
       >
-        <User className="w-5 h-5" />
+        <div className="relative">
+          <User className="w-5 h-5" />
+          <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-amber-900 rounded-full border-2 border-amber-100" />
+        </div>
       </button>
 
-      <ProfileMenu 
+      <ProfileMenu
         isOpen={showProfileMenu}
         onClose={() => setShowProfileMenu(false)}
         onSignOut={handleSignOut}
