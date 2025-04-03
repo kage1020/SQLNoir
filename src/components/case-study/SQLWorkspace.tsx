@@ -39,12 +39,30 @@ export function SQLWorkspace({ caseId }: SQLWorkspaceProps) {
       setError("");
       setIsResultsExpanded(true);
 
+      // Clear previous results first to avoid stale state
+      setResults({ columns: [], values: [] });
+
       const result = await executeQuery(query);
 
       if (result.error) {
         setError(result.error);
+        setResults({ columns: [], values: [] });
       } else {
-        setResults(result);
+        // Validate that the number of columns matches the data
+        const isValid = result.values.every(
+          (row) => row.length === result.columns.length
+        );
+        if (!isValid) {
+          setError("Query result structure is invalid");
+          setResults({ columns: [], values: [] });
+          return;
+        }
+
+        // Set the new results atomically
+        setResults({
+          columns: result.columns,
+          values: result.values,
+        });
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
