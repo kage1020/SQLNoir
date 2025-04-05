@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CaseFile } from "./CaseFile";
 import { Lock, Github, Coffee, Share2 } from "lucide-react";
+import { FaDiscord } from "react-icons/fa";
 import { UserMenu } from "./auth/UserMenu";
 import { cases, categories } from "../cases";
 import { SharePopup } from "./SharePopup";
@@ -55,6 +56,17 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
               >
                 <Coffee className="w-5 h-5" />
                 <span className="hidden sm:inline">Buy Me a Coffee</span>
+              </a>
+              <a
+                href="https://discord.gg/TuTCZHEs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-100 hover:bg-amber-200 
+                         text-amber-900 transition-colors duration-200"
+                title="Join Discord"
+              >
+                <FaDiscord className="w-5 h-5" />
+                <span className="hidden sm:inline">Join Discord</span>
               </a>
               <button
                 onClick={() => setIsSharePopupOpen(true)}
