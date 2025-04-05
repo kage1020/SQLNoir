@@ -165,7 +165,7 @@ export function SolutionSubmission({
                 disabled={isLoading}
               />
               <p className="mt-2 text-sm text-amber-700">
-                Enter the specific answer you found through your investigation.
+                Enter the specific name you found through your investigation.
               </p>
             </div>
 

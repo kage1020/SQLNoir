@@ -1,6 +1,4 @@
-import React from "react";
 import { Case } from "../types";
-import { Verified as Magnifier } from "lucide-react";
 
 interface CaseFileProps {
   caseData: Case;
@@ -14,6 +12,24 @@ export function CaseFile({ caseData, onClick, isSolved }: CaseFileProps) {
       onClick={onClick}
       className="group relative paper-texture p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-amber-900/20 hover:scale-102"
     >
+      {caseData.isNew && !isSolved && (
+        <div className="absolute top-0 -right-2 z-20">
+          <div className="relative">
+            <div
+              className="bg-red-800 text-amber-50 px-4 py-1 rounded-sm font-detective 
+                       border-2 border-double border-red-900 shadow-lg
+                       flex items-center justify-center transform rotate-12"
+              style={{
+                textShadow: "1px 1px 0 rgba(0,0,0,0.3)",
+                boxShadow:
+                  "2px 2px 4px rgba(0,0,0,0.2), -1px -1px 2px rgba(255,255,255,0.1) inset",
+              }}
+            >
+              <span className="text-sm tracking-wider">NEW</span>
+            </div>
+          </div>
+        </div>
+      )}
       {isSolved && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div

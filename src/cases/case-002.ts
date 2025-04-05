@@ -8,6 +8,7 @@ const theStolenSound: Case = {
     "A prized vinyl record has been stolen from West Hollywood Records. Follow the clues to uncover the culprit.",
   xpReward: 100,
   completed: false,
+  isNew: false,
   category: "beginner",
   brief: `In the neon glow of 1980s Los Angeles, the West Hollywood Records store was rocked by a daring theft. A prized vinyl record, worth over $10,000, vanished during a busy evening, leaving the store owner desperate for answers.
 Vaguely recalling the details, you know the incident occurred on July 15, 1983, at this famous store. Your task is to track down the thief and bring them to justice.`,

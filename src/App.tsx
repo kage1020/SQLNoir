@@ -7,6 +7,12 @@ import { UserMenu } from "./components/auth/UserMenu";
 import { SharePopup } from "./components/SharePopup";
 import { supabase } from "./lib/supabase";
 
+const SQL_TIPS = [
+  "Comment your complex SQL queries",
+  "Use single quotes for text values: WHERE name = 'John'",
+  "End your SQL statements with a semicolon (;)",
+];
+
 export default function App() {
   const [started, setStarted] = useState(false);
   const [selectedCase, setSelectedCase] = useState<any>(null);
@@ -71,9 +77,18 @@ export default function App() {
 
   // Show loading state while checking authentication
   if (loading) {
+    const randomTip = SQL_TIPS[Math.floor(Math.random() * SQL_TIPS.length)];
+
     return (
-      <div className="min-h-screen bg-amber-50/50 flex items-center justify-center">
+      <div className="min-h-screen bg-amber-50/50 flex flex-col items-center justify-center space-y-8">
+        <h2 className="text-3xl font-detective text-amber-900">Loading...</h2>
         <div className="w-12 h-12 border-4 border-amber-700 border-t-transparent rounded-full animate-spin"></div>
+        <div className="max-w-md text-center">
+          <p className="text-lg font-detective text-amber-800">
+            Detective's Tip:
+          </p>
+          <p className="text-amber-700 italic mt-2">{randomTip}</p>
+        </div>
       </div>
     );
   }

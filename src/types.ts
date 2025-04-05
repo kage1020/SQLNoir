@@ -5,6 +5,7 @@ export interface Case {
   description: string;
   xpReward: number;
   completed: boolean;
+  isNew: boolean;
   category: "beginner" | "intermediate" | "advanced" | "expert";
   brief: string;
   objectives: string[];

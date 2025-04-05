@@ -8,6 +8,7 @@ const vanishingBriefcaseCase: Case = {
     "A briefcase containing sensitive documents has vanished from the Blue Note Lounge. Follow the clues to identify the thief.",
   xpReward: 50,
   completed: false,
+  isNew: false,
   category: "beginner",
   brief:
     "Set in the gritty 1980s, a valuable briefcase has disappeared from the Blue Note Lounge. A witness reported that a man in a trench coat was seen fleeing the scene. Investigate the crime scene, review the list of suspects, and examine interview transcripts to reveal the culprit.",
