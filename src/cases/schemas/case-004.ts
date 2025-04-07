@@ -981,7 +981,7 @@ export default [
     (114, 1, 6, 19871030, '10:50', 'The gym is crowded after work hours.'),
     (115, 4, 3, 19871028, '11:15', 'I need to schedule a dentist appointment.'),
     (116, 9, 7, 19871029, '12:30', 'The washing machine is making strange noises.'),
-    (117, 11, 58, 19871030, '23:30', 'Why did you kill him, bro? You should have let the carpenter do his job!'),
+    (117, 11, 58, 19871030, '23:30', 'Why did you kill him, bro? You should have left the carpenter do it himself!'),
     (118, 6, 8, 19871028, '14:20', 'The car needs an oil change soon.'),
     (119, 3, 1, 19871029, '15:35', 'I lost my house keys yesterday.'),
     (120, 7, 4, 19871030, '16:50', 'The pizza delivery was late again.'),
