@@ -58,7 +58,7 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
                 <span className="hidden sm:inline">Buy Me a Coffee</span>
               </a>
               <a
-                href="https://discord.gg/TuTCZHEs"
+                href="https://discord.gg/eQKFQUxu"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-100 hover:bg-amber-200 
