@@ -160,7 +160,7 @@ export default function App() {
           <span className="hidden sm:inline">Buy Me a Coffee</span>
         </a>
         <a
-          href="https://discord.gg/TuTCZHEs"
+          href="https://discord.gg/eQKFQUxu"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-100/80 hover:bg-amber-200/80 
