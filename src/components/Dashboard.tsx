@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { CaseFile } from "./CaseFile";
-import { Lock, Github, Coffee, Share2 } from "lucide-react";
+import { Lock, Github, Share2 } from "lucide-react";
 import { FaDiscord } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
 import { UserMenu } from "./auth/UserMenu";
 import { cases, categories } from "../cases";
 import { SharePopup } from "./SharePopup";
@@ -44,18 +45,18 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
                 title="Star on GitHub"
               >
                 <Github className="w-5 h-5" />
-                <span className="hidden sm:inline">Star on GitHub</span>
+                <span className="hidden sm:inline">GitHub</span>
               </a>
               <a
-                href="https://buymeacoffee.com/hristobogoev"
+                href="https://x.com/ceoico"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-100 hover:bg-amber-200 
                          text-amber-900 transition-colors duration-200"
-                title="Buy Me a Coffee"
+                title="Follow on X"
               >
-                <Coffee className="w-5 h-5" />
-                <span className="hidden sm:inline">Buy Me a Coffee</span>
+                <BsTwitterX className="w-5 h-5" />
+                <span className="hidden sm:inline">Twitter</span>
               </a>
               <a
                 href="https://discord.gg/rMQRwrRYHH"
@@ -66,7 +67,7 @@ export function Dashboard({ onCaseSelect, userInfo }: DashboardProps) {
                 title="Join Discord"
               >
                 <FaDiscord className="w-5 h-5" />
-                <span className="hidden sm:inline">Join Discord</span>
+                <span className="hidden sm:inline">Discord</span>
               </a>
               <button
                 onClick={() => setIsSharePopupOpen(true)}
