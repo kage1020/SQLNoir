@@ -8,9 +8,10 @@
     "submitting": "送信中...",
     "tryAgain": "もう一度挑戦",
     "share": "共有",
-    "starOnGitHub": "GitHubでスター",
-    "buyMeACoffee": "コーヒーをおごる",
-    "joinDiscord": "Discordに参加"
+    "starOnGitHub": "GitHub",
+    "twitter": "Twitter",
+    "joinDiscord": "Discord",
+    "blog": "ブログ"
   },
   "navigation": {
     "caseBrief": "事件概要",

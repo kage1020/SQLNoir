@@ -8,9 +8,10 @@
     "submitting": "Submitting...",
     "tryAgain": "Try Again",
     "share": "Share",
-    "starOnGitHub": "Star on GitHub",
-    "buyMeACoffee": "Buy Me a Coffee",
-    "joinDiscord": "Join Discord"
+    "starOnGitHub": "GitHub",
+    "twitter": "Twitter",
+    "joinDiscord": "Discord",
+    "blog": "Blog"
   },
   "navigation": {
     "caseBrief": "Case Brief",
