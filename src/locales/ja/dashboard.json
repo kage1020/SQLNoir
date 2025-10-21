@@ -1,0 +1,42 @@
+{
+  "title": "事件ファイル",
+  "xp": "XP: {{count}}",
+  "new": "NEW",
+  "solved": "解決済み",
+  "locked": "ロック中",
+  "xpRequired": "{{xp}} XPが必要",
+  "comingSoon": "さらなる事件を準備中...",
+  "categories": {
+    "beginner": {
+      "title": "初級事件",
+      "description": "SQL初心者に最適。クエリとデータ分析の基本を学びます。"
+    },
+    "intermediate": {
+      "title": "中級事件",
+      "description": "基本的なSQL知識を持つ捜査官向け。より複雑なクエリと最適化に挑戦します。"
+    },
+    "advanced": {
+      "title": "上級事件",
+      "description": "深いSQL知識と問題解決スキルが必要なエキスパートレベルの事件。"
+    }
+  },
+  "submission": {
+    "title": "捜査結果を提出",
+    "yourAnswer": "あなたの答え",
+    "placeholder": "答えを入力してください...",
+    "hint": "捜査で見つけた具体的な名前を入力してください。",
+    "caseSolved": "事件解決！",
+    "notQuite": "惜しい！",
+    "tryAgainMessage": "別の答えでもう一度試してください。",
+    "caseExplanation": "事件の解説",
+    "xpNote": "注意: この事件のXP報酬を獲得するにはアカウントが必要です。"
+  },
+  "share": {
+    "title": "一緒に事件を解決しよう！",
+    "twitter": "Twitter",
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "copyLink": "リンクをコピー",
+    "linkCopied": "リンクをコピーしました！"
+  }
+}

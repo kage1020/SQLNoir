@@ -7,34 +7,39 @@ import {
   ChevronUp,
   CheckCircle,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface CaseBriefProps {
   caseData: any;
 }
 
 export function CaseBrief({ caseData }: CaseBriefProps) {
+  const { t } = useTranslation(["cases", "common"]);
   const [isHintsOpen, setIsHintsOpen] = useState(false);
+
+  const caseNumber = caseData.id.split("-")[1];
+  const caseKey = `case-${caseNumber}`;
 
   return (
     <div className="space-y-8">
       <div className="bg-amber-100/50 p-6 rounded-lg border border-amber-900/10">
         <h2 className="font-detective text-2xl text-amber-900 mb-4 flex items-center">
           <FileText className="w-6 h-6 mr-2" />
-          Case #{caseData.id.split("-")[1]}: {caseData.title}
+          {t("common:caseInfo.caseNumber", { number: caseNumber })}: {t(`cases:${caseKey}.title`)}
         </h2>
         <div className="prose text-amber-800">
-          <p className="mb-4">{caseData.brief}</p>
-          {/* <p>{caseData.description}</p> */}
+          <p className="mb-4">{t(`cases:${caseKey}.brief`)}</p>
+          {/* <p>{t(`cases:${caseKey}.description`)}</p> */}
         </div>
       </div>
 
       <div className="bg-amber-100/50 p-6 rounded-lg border border-amber-900/10">
         <h3 className="font-detective text-xl text-amber-900 mb-4 flex items-center">
           <Target className="w-5 h-5 mr-2" />
-          Objectives
+          {t("common:caseInfo.objectives")}
         </h3>
         <ul className="space-y-3 text-amber-800">
-          {caseData.objectives.map((objective: string, index: number) => (
+          {t(`cases:${caseKey}.objectives`, { returnObjects: true }).map((objective: string, index: number) => (
             <li key={index} className="flex items-start">
               <span className="font-mono mr-2">{index + 1}.</span>
               {objective}

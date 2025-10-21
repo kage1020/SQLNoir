@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Send, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { supabase } from "../../lib/supabase";
 import type { Case } from "../../types";
 
@@ -12,6 +13,7 @@ export function SolutionSubmission({
   caseData,
   onSolve,
 }: SolutionSubmissionProps) {
+  const { t } = useTranslation("dashboard");
   const [answer, setAnswer] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -98,7 +100,7 @@ export function SolutionSubmission({
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="bg-amber-100/50 p-6 rounded-lg border border-amber-900/10">
         <h3 className="font-detective text-xl text-amber-900 mb-4">
-          Submit Your Findings
+          {t("submission.title")}
         </h3>
 
         {submitted ? (
@@ -119,7 +121,7 @@ export function SolutionSubmission({
                     isCorrect ? "text-green-800" : "text-red-800"
                   }`}
                 >
-                  {isCorrect ? "Case Solved!" : "Not Quite Right"}
+                  {isCorrect ? t("submission.caseSolved") : t("submission.notQuite")}
                 </h4>
                 <p
                   className={`mb-4 ${
@@ -128,12 +130,12 @@ export function SolutionSubmission({
                 >
                   {isCorrect
                     ? caseData.solution.successMessage
-                    : "Try again with a different answer."}
+                    : t("submission.tryAgainMessage")}
                 </p>
                 {isCorrect && (
                   <div className="bg-white/50 p-4 rounded-lg">
                     <h5 className="font-detective text-green-800 mb-2">
-                      Case Explanation
+                      {t("submission.caseExplanation")}
                     </h5>
                     <p className="text-green-700">
                       {caseData.solution.explanation}
@@ -144,8 +146,7 @@ export function SolutionSubmission({
                 {!user && (
                   <div className="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-3">
                     <p className="text-amber-800 text-sm font-medium">
-                      Note: You need an account to gain the XP reward for this
-                      case.
+                      {t("submission.xpNote")}
                     </p>
                   </div>
                 )}
@@ -154,7 +155,7 @@ export function SolutionSubmission({
                     onClick={() => setSubmitted(false)}
                     className="text-red-600 hover:text-red-700 font-detective"
                   >
-                    Try Again
+                    {t("common:buttons.tryAgain")}
                   </button>
                 )}
               </div>
@@ -164,18 +165,18 @@ export function SolutionSubmission({
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block font-detective text-amber-800 mb-2">
-                Your Answer
+                {t("submission.yourAnswer")}
               </label>
               <input
                 type="text"
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
                 className="w-full bg-white border border-amber-300 rounded-lg p-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                placeholder="Enter your answer..."
+                placeholder={t("submission.placeholder")}
                 disabled={isLoading}
               />
               <p className="mt-2 text-sm text-amber-700">
-                Enter the specific name you found through your investigation.
+                {t("submission.hint")}
               </p>
             </div>
 
@@ -190,7 +191,7 @@ export function SolutionSubmission({
                 type="submit"
                 disabled={isLoading}
                 className={`
-                  bg-amber-700 hover:bg-amber-600 text-amber-100 px-6 py-2 rounded-lg 
+                  bg-amber-700 hover:bg-amber-600 text-amber-100 px-6 py-2 rounded-lg
                   flex items-center font-detective transition-colors
                   ${isLoading ? "opacity-75 cursor-not-allowed" : ""}
                 `}
@@ -198,12 +199,12 @@ export function SolutionSubmission({
                 {isLoading ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Submitting...
+                    {t("common:buttons.submitting")}
                   </>
                 ) : (
                   <>
                     <Send className="w-4 h-4 mr-2" />
-                    Submit Solution
+                    {t("common:buttons.submitSolution")}
                   </>
                 )}
               </button>

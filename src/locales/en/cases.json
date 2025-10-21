@@ -1,0 +1,67 @@
+{
+  "case-001": {
+    "title": "The Vanishing Briefcase",
+    "description": "A briefcase containing sensitive documents has vanished from the Blue Note Lounge. Follow the clues to identify the thief.",
+    "brief": "Set in the gritty 1980s, a valuable briefcase has disappeared from the Blue Note Lounge. A witness reported that a man in a trench coat was seen fleeing the scene. Investigate the crime scene, review the list of suspects, and examine interview transcripts to reveal the culprit.",
+    "objectives": [
+      "Retrieve the correct crime scene details to gather the key clue.",
+      "Identify the suspect whose profile matches the witness description.",
+      "Verify the suspect using their interview transcript."
+    ],
+    "successMessage": "Congratulations, detective! You have successfully identified Vincent Malone as the culprit.",
+    "explanation": "First, you retrieved the crime scene details from the 'crime_scene' table which mentioned a man in a trench coat with a scar on his left cheek. Next, querying the 'suspects' table narrowed the field down to two individuals. Finally, examining the 'interviews' table confirmed that Vincent Malone indeed stole the briefcase."
+  },
+  "case-002": {
+    "title": "The Stolen Sound",
+    "description": "A prized vinyl record has been stolen from West Hollywood Records. Follow the clues to uncover the culprit.",
+    "brief": "In the neon glow of 1980s Los Angeles, the West Hollywood Records store was rocked by a daring theft. A prized vinyl record, worth over $10,000, vanished during a busy evening, leaving the store owner desperate for answers.\nVaguely recalling the details, you know the incident occurred on July 15, 1983, at this famous store. Your task is to track down the thief and bring them to justice.",
+    "objectives": [
+      "Retrieve the crime scene report for the record theft using the known date and location.",
+      "Retrieve witness records linked to that crime scene to obtain their clues.",
+      "Use the clues from the witnesses to find the suspect in the suspects table.",
+      "Retrieve the suspect's interview transcript to confirm the confession."
+    ],
+    "successMessage": "Excellent work, detective! Rico Delgado has confessed to stealing the prized vinyl record.",
+    "explanation": "You began by querying the 'crime_scene' table with the date (19830715) and location (West Hollywood Records)\nto find the incident report. Then, you retrieved the two witness records from the 'witnesses' table, which revealed that:\n• The suspect wore a red bandana.\n• The suspect had a distinctive gold watch.\nNext, you queried the 'suspects' table, and there were 3 suspects matching the clues.\nFinally, you found the confession from Rico Delgado in the 'interviews' table."
+  },
+  "case-003": {
+    "title": "The Miami Marina Murder",
+    "description": "A body was found at Coral Bay Marina. Two potential suspects were last seen near the scene. Find the murderer and bring them to justice.",
+    "brief": "A body was found floating near the docks of Coral Bay Marina in the early hours of August 14, 1986. Your job detective is to find the murderer and bring them to justice.\nThis case might require the use of JOINs, wildcard searches, and logical deduction. Get to work, detective.",
+    "objectives": [
+      "Find the murderer. ( Start by finding the crime scene and go from there )"
+    ],
+    "successMessage": "Great detective work! Thomas Brown has confessed to the crime.",
+    "explanation": "The investigation started with two suspects from the crime scene, one living on Ocean Drive and the other with a name ending in \"ez\".\nAfter interviewing them, hotel check-ins were filtered using two separate clues—first by date, then further refined using surveillance records.\nOnly three people matched both filters.\nAn interview with each of them revealed their role in the case, and after pressing further, Thomas Brown confessed to the crime."
+  },
+  "case-004": {
+    "title": "The Midnight Masquerade Murder",
+    "description": "Leonard Pierce was murdered at a Coconut Grove masked ball. Follow the clues to reveal the true murderer.",
+    "brief": "On October 31, 1987, at a Coconut Grove mansion masked ball, Leonard Pierce was found dead in the garden. Can you piece together all the clues to expose the true murderer?",
+    "objectives": [
+      "Reveal the true murderer of this complex case."
+    ],
+    "successMessage": "Outstanding detective work! The evidence conclusively shows that Marco Santos is the true murderer.",
+    "explanation": "You began by retrieving the crime scene record and examining witness statements, which mentioned a hotel booking at The Grand Regency (room 707 on 19871030).\nFiltering hotel check-ins by these clues returned multiple entries.\nA JOIN with surveillance records narrowed the field to one key entry that noted a subject yelling on a phone (\"I'm gonna kill him!\").\nReviewing phone records, you found a call to Victor DiMarco containing the phrase \"Why did you kill him, bro? You should have let the carpenter do his job!\"\nIdentifying the recipient of that call and interviewing him revealed that he was not the killer but hinted that the true murderer is a carpenter driving a Lamborghini.\nJoining the vehicle registry with the person table (filtering for occupation \"Carpenter\" and car model \"Lamborghini\") yielded one candidate.\nA final interview with that candidate resulted in a confession.\nThus, the true murderer is Marco Santos."
+  },
+  "case-005": {
+    "title": "The Silicon Sabotage",
+    "description": "Miami's leading tech corporation, was about to unveil its groundbreaking microprocessor. Just hours before the reveal, the prototype was destroyed.",
+    "brief": "QuantumTech, Miami's leading technology corporation, was about to unveil its groundbreaking microprocessor called \"QuantaX.\" Just hours before the reveal, the prototype was destroyed, and all research data was erased. Detectives suspect corporate espionage.",
+    "objectives": [
+      "Find who sabotaged the microprocessor."
+    ],
+    "successMessage": "Outstanding detective work! The evidence conclusively shows that Hristo Bogoev is the true saboteur.",
+    "explanation": "You began by retrieving the incident report from QuantumTech regarding the destruction of their prototype. Two witnesses were initially identified: Carl Jenkins and Tina Ruiz.\nTina Ruiz mentioned seeing someone with a keycard marked \"QX-\" followed by an odd two-digit number. Filtering keycard access logs for such patterns returned over 20 results, which was too broad.\nCarl Jenkins reported unusual server activity linked to a server in Helsinki. Searching the computer access logs for Helsinki access again returned too many entries.\nHowever, performing a JOIN between the keycard access and computer access logs narrowed the list down to Elizabeth Gordon.\nInvestigating her further, you reviewed her witness statement. She claimed she had received an email warning her about an alarm near the chip, prompting her to go check.\nSearching the email logs, you discovered that she had received the email from Norman Owens — who himself had received two suspicious messages from a sender with ID NULL. One email told Norman to \"move L into place,\" and the other instructed him to unlock Facility 18 so someone else could \"finish things.\"\nThis led you to check the facility access logs for that day. Only two individuals accessed Facility 18: Elizabeth Gordon and one other shortly afterward — Hristo Bogoev."
+  },
+  "case-006": {
+    "title": "The Vanishing Diamond",
+    "description": "The famous \"Heart of Atlantis\" diamond necklace suddenly disappeared from its display at the charity gala.",
+    "brief": "At Miami's prestigious Fontainebleau Hotel charity gala, the famous \"Heart of Atlantis\" diamond necklace suddenly disappeared from its display.",
+    "objectives": [
+      "Find who stole the diamond."
+    ],
+    "successMessage": "Outstanding detective work! The evidence conclusively shows that Mike Manning is the thief.",
+    "explanation": "You began by retrieving the crime scene record and examining witness statements, which mentioned a dock rental, part of a VIP-R invitation and a navy suit.\nFiltering marina rentals by these clues returned multiple entries.\nA multiple JOIN with the guest table and attire registry returned one candidate.\nA final interview with that candidate resulted in a confession.\nThus, the true thief is Mike Manning."
+  }
+}

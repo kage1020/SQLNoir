@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Facebook, Linkedin, Link2, Twitter, X } from "lucide-react";
 
 interface SharePopupProps {
@@ -7,13 +8,14 @@ interface SharePopupProps {
 }
 
 export function SharePopup({ isOpen, onClose }: SharePopupProps) {
+  const { t } = useTranslation('dashboard');
   const [copyStatus, setCopyStatus] = useState("");
   const shareUrl = "https://sqlnoir.com";
   const shareTitle = "SQL Noir - Learn SQL by solving crimes";
 
   const shareOptions = [
     {
-      name: "Twitter",
+      name: t('share.twitter'),
       icon: Twitter,
       onClick: () => {
         window.open(
@@ -25,7 +27,7 @@ export function SharePopup({ isOpen, onClose }: SharePopupProps) {
       },
     },
     {
-      name: "Facebook",
+      name: t('share.facebook'),
       icon: Facebook,
       onClick: () => {
         window.open(
@@ -37,7 +39,7 @@ export function SharePopup({ isOpen, onClose }: SharePopupProps) {
       },
     },
     {
-      name: "LinkedIn",
+      name: t('share.linkedin'),
       icon: Linkedin,
       onClick: () => {
         window.open(
@@ -49,11 +51,11 @@ export function SharePopup({ isOpen, onClose }: SharePopupProps) {
       },
     },
     {
-      name: "Copy Link",
+      name: t('share.copyLink'),
       icon: Link2,
       onClick: async () => {
         await navigator.clipboard.writeText(shareUrl);
-        setCopyStatus("Link copied!");
+        setCopyStatus(t('share.linkCopied'));
         setTimeout(() => setCopyStatus(""), 2000);
       },
     },
@@ -73,7 +75,7 @@ export function SharePopup({ isOpen, onClose }: SharePopupProps) {
       >
         <div className="flex justify-between items-center mb-4">
           <h3 className="font-detective text-xl text-amber-900">
-            Solve crimes together!
+            {t('share.title')}
           </h3>
           <button
             onClick={onClose}
@@ -93,7 +95,7 @@ export function SharePopup({ isOpen, onClose }: SharePopupProps) {
             >
               <option.icon className="w-5 h-5" />
               <span className="font-medium">
-                {option.name === "Copy Link" && copyStatus
+                {option.name === t('share.copyLink') && copyStatus
                   ? copyStatus
                   : option.name}
               </span>
