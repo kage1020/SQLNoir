@@ -1,0 +1,42 @@
+{
+  "title": "Case Files",
+  "xp": "XP: {{count}}",
+  "new": "NEW",
+  "solved": "SOLVED",
+  "locked": "Locked",
+  "xpRequired": "{{xp}} XP required",
+  "comingSoon": "More coming soon...",
+  "categories": {
+    "beginner": {
+      "title": "Beginner Cases",
+      "description": "Perfect for SQL newcomers. Learn the basics of querying and data analysis."
+    },
+    "intermediate": {
+      "title": "Intermediate Cases",
+      "description": "For investigators with basic SQL knowledge. Tackle more complex queries and optimizations."
+    },
+    "advanced": {
+      "title": "Advanced Cases",
+      "description": "Expert-level cases requiring deep SQL knowledge and problem-solving skills."
+    }
+  },
+  "submission": {
+    "title": "Submit Your Findings",
+    "yourAnswer": "Your Answer",
+    "placeholder": "Enter your answer...",
+    "hint": "Enter the specific name you found through your investigation.",
+    "caseSolved": "Case Solved!",
+    "notQuite": "Not Quite Right",
+    "tryAgainMessage": "Try again with a different answer.",
+    "caseExplanation": "Case Explanation",
+    "xpNote": "Note: You need an account to gain the XP reward for this case."
+  },
+  "share": {
+    "title": "Solve crimes together!",
+    "twitter": "Twitter",
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied!"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "appName": "SQL Noir",
+  "buttons": {
+    "back": "Back",
+    "backToCases": "Back to Cases",
+    "startInvestigation": "Start Investigation",
+    "submitSolution": "Submit Solution",
+    "submitting": "Submitting...",
+    "tryAgain": "Try Again",
+    "share": "Share",
+    "starOnGitHub": "Star on GitHub",
+    "buyMeACoffee": "Buy Me a Coffee",
+    "joinDiscord": "Join Discord"
+  },
+  "navigation": {
+    "caseBrief": "Case Brief",
+    "sqlWorkspace": "SQL Workspace",
+    "schema": "Schema",
+    "notes": "Notes",
+    "submit": "Submit",
+    "tab1": "Tab 1",
+    "tab2": "Tab 2",
+    "sideBySide": "Side by Side",
+    "stackView": "Stack View"
+  },
+  "loading": {
+    "loading": "Loading...",
+    "detectiveTip": "Detective's Tip:"
+  },
+  "sqlTips": [
+    "Comment your complex SQL queries",
+    "Use single quotes for text values: WHERE name = 'John'",
+    "End your SQL statements with a semicolon (;)"
+  ],
+  "tagline": "Solve mysteries through SQL.",
+  "caseInfo": {
+    "caseNumber": "Case #{{number}}",
+    "xpReward": "{{xp}} XP",
+    "objectives": "Objectives"
+  }
+}

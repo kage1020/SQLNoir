@@ -9,20 +9,13 @@ import {
   Columns,
   LayoutGrid,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { CaseBrief } from "./case-study/CaseBrief";
 import { SQLWorkspace } from "./case-study/SQLWorkspace";
 import { SolutionSubmission } from "./case-study/SolutionSubmission";
 import { DatabaseSchema } from "./case-study/DatabaseSchema";
 import { CaseNotes } from "./case-study/CaseNotes";
 import type { Case } from "../types";
-
-const tabs = [
-  { id: "brief", label: "Case Brief", icon: Book },
-  { id: "workspace", label: "SQL Workspace", icon: Code },
-  { id: "schema", label: "Schema", icon: Database },
-  { id: "notes", label: "Notes", icon: PenLine, desktopOnly: true },
-  { id: "submit", label: "Submit", icon: Send },
-];
 
 interface CaseSolverProps {
   caseData: Case;
@@ -31,11 +24,20 @@ interface CaseSolverProps {
 }
 
 export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
+  const { t } = useTranslation("common");
   const [activeTab, setActiveTab] = useState("brief");
   const [isSolved, setIsSolved] = useState(false);
   const [isSideBySide, setIsSideBySide] = useState(false);
   const [secondaryTab, setSecondaryTab] = useState("schema");
   const [activeTabSelector, setActiveTabSelector] = useState<1 | 2>(1);
+
+  const tabs = [
+    { id: "brief", label: t("navigation.caseBrief"), icon: Book },
+    { id: "workspace", label: t("navigation.sqlWorkspace"), icon: Code },
+    { id: "schema", label: t("navigation.schema"), icon: Database },
+    { id: "notes", label: t("navigation.notes"), icon: PenLine, desktopOnly: true },
+    { id: "submit", label: t("navigation.submit"), icon: Send },
+  ];
 
   // Function to handle side-by-side toggle
   const handleSideBySideToggle = () => {
@@ -89,7 +91,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
             className="flex items-center text-amber-900 hover:text-amber-700 font-detective"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
+            {t("buttons.back")}
           </button>
           <span className="font-mono text-amber-900 text-sm">
             Case #{caseData.id.split("-")[1]} • {caseData.xpReward} XP
@@ -138,7 +140,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
             className="flex items-center text-amber-900 hover:text-amber-700 font-detective"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Cases
+            {t("buttons.backToCases")}
           </button>
           <div className="flex items-center gap-4">
             <button
@@ -157,7 +159,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
               ) : (
                 <Columns className="w-4 h-4 mr-2" />
               )}
-              {isSideBySide ? "Stack View" : "Side by Side"}
+              {isSideBySide ? t("navigation.stackView") : t("navigation.sideBySide")}
             </button>
             <div className="bg-amber-100 px-4 py-2 rounded-lg">
               <span className="font-mono text-amber-900">
@@ -203,7 +205,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
                       {tab.label}
                       {isSideBySide && isActive && (
                         <span className="ml-2 text-xs opacity-75">
-                          {isActiveInTab1 ? "(Tab 1)" : "(Tab 2)"}
+                          {isActiveInTab1 ? `(${t("navigation.tab1")})` : `(${t("navigation.tab2")})`}
                         </span>
                       )}
                     </button>
@@ -220,7 +222,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
                         : "text-amber-700 hover:bg-amber-100"
                     }`}
                   >
-                    Tab 1
+                    {t("navigation.tab1")}
                   </button>
                   <button
                     onClick={() => setActiveTabSelector(2)}
@@ -230,7 +232,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
                         : "text-amber-700 hover:bg-amber-100"
                     }`}
                   >
-                    Tab 2
+                    {t("navigation.tab2")}
                   </button>
                 </div>
               )}
@@ -246,7 +248,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
             <div className={`${isSideBySide ? "lg:w-1/2 min-w-0" : ""}`}>
               {isSideBySide && (
                 <div className="mb-4 text-sm font-detective text-amber-900">
-                  Tab 1
+                  {t("navigation.tab1")}
                 </div>
               )}
               {Object.entries(tabComponents).map(([id, component]) => (
@@ -258,7 +260,7 @@ export function CaseSolver({ caseData, onBack, onSolve }: CaseSolverProps) {
             {isSideBySide && (
               <div className="hidden lg:block lg:w-1/2 min-w-0 border-l border-amber-200 pl-6">
                 <div className="mb-4 text-sm font-detective text-amber-900">
-                  Tab 2
+                  {t("navigation.tab2")}
                 </div>
                 {Object.entries(tabComponents).map(([id, component]) => (
                   <div key={id} className={secondaryTab === id ? "" : "hidden"}>

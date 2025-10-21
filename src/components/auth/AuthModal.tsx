@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
+import { useTranslation } from "react-i18next";
 import { supabase } from "../../lib/supabase";
 
 interface AuthModalProps {
@@ -9,6 +10,7 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
+  const { t } = useTranslation("auth");
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,7 +39,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
       setError(
         err instanceof Error
           ? err.message
-          : "An error occurred during Google sign-in"
+          : t("errors.googleSignIn")
       );
       setGoogleLoading(false);
     }
@@ -68,11 +70,9 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           // Handle specific error cases
           switch (error.message) {
             case "Invalid login credentials":
-              throw new Error("Invalid email or password. Please try again.");
+              throw new Error(t("errors.invalidCredentials"));
             case "Email not confirmed":
-              throw new Error(
-                "Please confirm your email address before signing in."
-              );
+              throw new Error(t("errors.emailNotConfirmed"));
             default:
               throw error;
           }
@@ -86,17 +86,15 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           // Handle signup specific errors
           switch (error.message) {
             case "User already registered":
-              throw new Error(
-                "An account with this email already exists. Please sign in instead."
-              );
+              throw new Error(t("errors.userExists"));
             case "Password should be at least 6 characters":
-              throw new Error("Password must be at least 6 characters long.");
+              throw new Error(t("errors.passwordLength"));
             default:
               throw error;
           }
         } else {
           // Show success message for sign up
-          setError("success:Account created! You can now sign in.");
+          setError(`success:${t("success.accountCreated")}`);
           setIsLogin(true);
           setPassword("");
           setLoading(false);
@@ -105,7 +103,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
       }
       onClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : t("errors.general"));
     } finally {
       setLoading(false);
     }
@@ -118,7 +116,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         <div className="px-6 py-4 border-b border-amber-200">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-detective text-amber-900">
-              {isLogin ? "Welcome Back, Detective" : "Join the Investigation"}
+              {isLogin ? t("modal.welcomeBack") : t("modal.joinInvestigation")}
             </h2>
             <button
               onClick={onClose}
@@ -162,7 +160,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               <FcGoogle className="w-6 h-6" />
             )}
             <span className="text-gray-700 text-base">
-              {isLogin ? "Sign in with Google" : "Sign up with Google"}
+              {isLogin ? t("modal.signInWithGoogle") : t("modal.signUpWithGoogle")}
             </span>
           </button>
 
@@ -172,7 +170,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="px-3 bg-amber-50 text-amber-700 font-medium">
-                Or continue with email
+                {t("modal.orContinueWithEmail")}
               </span>
             </div>
           </div>
@@ -180,7 +178,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-detective text-amber-800 mb-1">
-                Email
+                {t("modal.email")}
               </label>
               <input
                 type="email"
@@ -194,19 +192,19 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
             <div>
               <label className="block text-sm font-detective text-amber-800 mb-1">
-                Password
+                {t("modal.password")}
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-amber-300 rounded-lg focus:ring-2 
+                className="w-full px-3 py-2 border border-amber-300 rounded-lg focus:ring-2
                          focus:ring-amber-500 focus:border-amber-500 bg-white"
                 required
                 minLength={6}
               />
               <p className="mt-1 text-xs text-amber-700">
-                {!isLogin && "Password must be at least 6 characters long"}
+                {!isLogin && t("modal.passwordHint")}
               </p>
             </div>
 
@@ -223,11 +221,11 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Processing...
+                  {t("modal.processing")}
                 </span>
               ) : (
                 <span>
-                  {isLogin ? "Sign In with Email" : "Sign Up with Email"}
+                  {isLogin ? t("modal.signInWithEmail") : t("modal.signUpWithEmail")}
                 </span>
               )}
             </button>
@@ -243,8 +241,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 className="text-amber-700 hover:text-amber-600 text-sm underline-offset-2 hover:underline"
               >
                 {isLogin
-                  ? "Don't have an account? Sign up"
-                  : "Already have an account? Sign in"}
+                  ? t("modal.noAccount")
+                  : t("modal.haveAccount")}
               </button>
             </div>
           </form>
